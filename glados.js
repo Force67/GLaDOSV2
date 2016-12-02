@@ -14,7 +14,7 @@ var YouTube = require('youtube-node');
 
 var youTube = new YouTube();
 
-
+var enabletranslation = false;
 
 client.on('ready', () => {
   console.log('Welcome to GLaDOS 2.0');
@@ -28,8 +28,10 @@ client.on('ready', () => {
   //init youtube
  // youTube.setKey('AIzaSyCVqkO07JjKZyenxdEub4n2RE22a7P3Qhs');
 
+    enabletranslation = true;
 });
 
+var googleTranslate = require('google-translate')('AIzaSyCVqkO07JjKZyenxdEub4n2RE22a7P3Qhs');
 
 //////////////////////////////////////////////////////////////////////////
 //
@@ -290,6 +292,30 @@ client.on('message', message => {
       message.channel.sendMessage(err);
     }
       
+  }
+  else if (message.content.startsWith(prefix + 'trs'))
+  {
+      let args = message.content.split(" ").slice(1);
+      if (enabletranslation)
+      { 
+        try
+        {
+
+          googleTranslate.translate(args[0], 'es', function(err, translation) {
+          message.channel.sendMessage(translation.translatedText);
+          // =>  Mi nombre es Brandon
+          });
+        }
+        catch (err)
+        {
+          message.channel.sendMessage('Exeption at @ ' + err);
+        }
+
+      }
+      else
+      {
+        message.channel.sendMessage('translate module not unlocked yet !');
+      }
   }
   else if (message.content.startsWith(prefix + 'status'))
   {
