@@ -293,7 +293,21 @@ client.on('message', message => {
                 if(row.co || args[1] == "add") {
                     message.reply("SCC command " + args[1] + " already exist for this server or is reserved!");
                 } else {
-                    db.run("INSERT INTO scc (command, code, serverid) VALUES(?1, ?2, ?3)", { 1: args[1], 2: args[2], 3: message.guild.id });
+                    //we only care about argument 
+                    try
+                    {
+                    var finalinsert = args.join().slice(0);
+                    //add time return new Date().getTime();
+                    var morefinalinsert = finalinsert.substr(4,finalinsert.length);
+                    var veryfinalinsert = morefinalinsert.split(",").join(" ");
+                    message.reply(veryfinalinsert);
+                    }
+                    catch (e)
+                    {
+                        message.reply("The issue seems to be " + e);
+                    }
+                                                                                                    // args[2]
+                    db.run("INSERT INTO scc (command, code, serverid) VALUES(?1, ?2, ?3)", { 1: args[1], 2: veryfinalinsert, 3: message.guild.id });
                     message.reply("SCC command " + args[1] + " added for this server!");
                 }
             });
