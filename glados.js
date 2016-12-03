@@ -5,6 +5,9 @@ const vm = require('vm');
 const bot = require('bot-commander');
 const fs = require('fs');
 const request = require('request');
+const split = require('split');
+const http = require('http');
+const url = require('url');
 //////////////////////////////////////////////
 var prefix = '>',
     imgur = require('imgur-node-api'),
@@ -14,13 +17,12 @@ var prefix = '>',
     path2 = process.cwd(),
     enabletranslation = false,
     sqlite3 = require('sqlite3').verbose(),
-    db = new sqlite3.Database('glados.db', sqlite3.OPEN_READWRITE);
+    db = new sqlite3.Database('glados.db', sqlite3.OPEN_READWRITE),
+    globalpaste = "";
 //////////////////////////////////////////////
 ///XFPARSE 
-var split = require('split');
-
 function GetElemenent(element, callback) {
-    fs.createReadStream(path2  + '/data/settings.xf')
+    fs.createReadStream(path2 + '/data/settings.xf')
         .pipe(split())
         .on('data', function(line) {
             //each chunk now is a seperate line! 
@@ -59,13 +61,15 @@ client.on('ready', () => {
     })
     console.log("Loading Settings...");
     //now 3rd party stuff
-    GetElemenent("imgurtoken",function(eleme)
-    {
+    GetElemenent("imgurtoken", function(eleme) {
         imgur.setClientID(eleme);
     });
-    GetElemenent("yttoken",function(eleme)
-    {
+    GetElemenent("yttoken", function(eleme) {
         youTube.setKey(eleme);
+    });
+    GetElemenent("pastebintoken",function(eleme)
+    {
+        globalpaste = eleme;
     });
 
     enabletranslation = true;
@@ -132,7 +136,10 @@ exports.main = {
     vm: vm,
     sqlite3: sqlite3,
     db: db,
-    request: request
+    request: request,
+    http: http,
+    url: url,
+    pastebin : globalpaste
 };
 
 //////////////////////////////////////////////
