@@ -5,7 +5,6 @@ const vm = require('vm');
 const bot = require('bot-commander');
 const fs = require('fs');
 const request = require('request');
-const curl = require( 'curlrequest' );
 //////////////////////////////////////////////
 var prefix = '>',
     imgur = require('imgur-node-api'),
@@ -343,6 +342,5 @@ exports.main = {
     prefix: prefix,
     imgur: imgur,
     youTube: youTube,
-    request: request,
-    curl: curl
+    request: request
 };
