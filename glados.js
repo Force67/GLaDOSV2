@@ -2,11 +2,15 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const vm = require('vm');
+const bot = require('bot-commander');
 //////////////////////////////////////////////
+var prefix = '>';
+exports.main = {
+    prefix: prefix
+};
 var imgur = require('imgur-node-api'),
     path = require('path');
 
-var prefix = '>';
 
 //var util = require('util');
 var YouTube = require('youtube-node');
@@ -15,10 +19,11 @@ var enabletranslation = false;
 
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('glados.db', sqlite3.OPEN_READWRITE);
+
+var pluginsLoaded = false;
 //////////////////////////////////////////////
 client.on('ready', () => {
     console.log('Welcome to GLaDOS 2.0');
-
     //init imgur
     imgur.setClientID("bf01b508a810247");
 
@@ -41,6 +46,22 @@ var googleTranslate = require('google-translate')('AIzaSyCVqkO07JjKZyenxdEub4n2R
 function parameter(len, parameter_) {
     return parameter_.substr(len + prefix.length + 1, parameter_.length);
 }
+
+
+//////////////////////////////////////////////////////////////////////////
+//
+//  New command system - ZERO LOVE! <3
+//
+//////////////////////////////////////////////////////////////////////////
+
+client.on('message', msg => {
+    if(!pluginsLoaded) {
+        bot.load('./plugins/commands.js');
+        pluginsLoaded = true;
+    }
+    bot.parse(msg.content, msg);
+});
+
 //////////////////////////////////////////////////////////////////////////
 //
 //  Client on Message Callbacks
@@ -48,6 +69,7 @@ function parameter(len, parameter_) {
 //////////////////////////////////////////////////////////////////////////
 
 //https://eslachance.gitbooks.io/discord-js-bot-guide/content/samples/message_reply_array.html
+
 
 var channelresponses = {
     'myid': "gay",
@@ -108,7 +130,7 @@ String.prototype.replaceAll = function(str1, str2, ignore) {
 }
 
 //////////////////////////////////////////////
-client.on('message', message => {
+/*client.on('message', message => {
 
     //db.run("INSERT INTO messages (userid) VALUES(?1)", { 1: message.author.id });
 
@@ -122,7 +144,7 @@ client.on('message', message => {
       message.channel.sendMessage('Set the parameter to' + parameter(message.content.length,message.content));
       prefix = parameter(9,message.content);
       console.log(parameter(9,message.content));
-    }*/
+    }*//*
     else if (message.content === prefix + 'bemyfriend') {
         message.reply('Send you a friend request!');
         message.client.user.addFriend();
@@ -153,7 +175,7 @@ client.on('message', message => {
           repeat = args.length - 1;
           console.log(repeat);
          // }*/
-
+/*
         let arg = args.join();
         //remove those ugly ","
         let newstring = arg.split(",").join(" ");
@@ -161,7 +183,7 @@ client.on('message', message => {
         for (i = 0; i < repeat; i++)
         {
           message.channel.sendMessage(newstring);
-        }*/
+        }*//*
         message.channel.sendMessage(newstring);
     } else if (message.content.startsWith(prefix + 'voice')) {
         //  let args = message.content.split(" ").slice(1);
@@ -177,7 +199,7 @@ client.on('message', message => {
           spambool = true;
            message.channel.sendMessage("fuck");
         }*/
-
+/*
         message.reply("Fuck you too..");
 
     } else if (message.content.includes('Force 67')) {
@@ -221,7 +243,7 @@ client.on('message', message => {
         if (args.length == 3)
         {
         imgur.update({   id: imageid,  title: args[1],  description: args[2] }, function (err,res) {
-        message.channel.sendMessage(res.data);  });  }*/
+        message.channel.sendMessage(res.data);  });  }*//*
     } else if (message.content.startsWith(prefix + 'yt')) {
         let args = message.content.split(" ").slice(1);
         //1
@@ -284,7 +306,7 @@ client.on('message', message => {
     /*} else if (message.content === prefix + 'countmessages') {
         db.get("SELECT COUNT(*) AS co FROM messages WHERE userid = ?1", { 1: message.author.id }, function (err, row) {
             message.reply("You have written " + row.co + " times!");
-        });*/
+        });*//*
     } else if (message.content.startsWith(prefix + 'scc')) {
         let args = message.content.split(" ").slice(1);
         if(args[0] == "add") { //commandname[1], code[2]
@@ -332,6 +354,7 @@ client.on('message', message => {
         //
     }
 });
+*/
 
 client.login('MjM2MjQxODY4ODEwMjIzNjE2.CuGQ6A.KPIZIfTWQAbDXnaQXnOsb2VFV24');
 
