@@ -3,24 +3,17 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const vm = require('vm');
 const bot = require('bot-commander');
+const fs = require('fs');
 //////////////////////////////////////////////
-var prefix = '>';
-exports.main = {
-    prefix: prefix
-};
-var imgur = require('imgur-node-api'),
-    path = require('path');
-
-
-//var util = require('util');
-var YouTube = require('youtube-node');
-var youTube = new YouTube();
-var enabletranslation = false;
-
-var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database('glados.db', sqlite3.OPEN_READWRITE);
-
-var pluginsLoaded = false;
+var prefix = '>',
+    imgur = require('imgur-node-api'),
+    path = require('path'),
+    YouTube = require('youtube-node'),
+    youTube = new YouTube(),
+    enabletranslation = false,
+    sqlite3 = require('sqlite3').verbose(),
+    db = new sqlite3.Database('glados.db', sqlite3.OPEN_READWRITE),
+    pluginsLoaded = false;
 //////////////////////////////////////////////
 client.on('ready', () => {
     console.log('Welcome to GLaDOS 2.0');
@@ -55,8 +48,13 @@ function parameter(len, parameter_) {
 //////////////////////////////////////////////////////////////////////////
 
 client.on('message', msg => {
-    if(!pluginsLoaded) {
-        bot.load('./plugins/commands.js');
+    if (!pluginsLoaded) {
+        fs.readdir('./plugins/', (err, files) => {
+            files.forEach(file => {
+                console.log("Loading plugin: " + file);
+                bot.load('./plugins/' + file);
+            });
+        })
         pluginsLoaded = true;
     }
     bot.parse(msg.content, msg);
@@ -144,7 +142,8 @@ String.prototype.replaceAll = function(str1, str2, ignore) {
       message.channel.sendMessage('Set the parameter to' + parameter(message.content.length,message.content));
       prefix = parameter(9,message.content);
       console.log(parameter(9,message.content));
-    }*//*
+    }*/
+/*
     else if (message.content === prefix + 'bemyfriend') {
         message.reply('Send you a friend request!');
         message.client.user.addFriend();
@@ -183,7 +182,8 @@ String.prototype.replaceAll = function(str1, str2, ignore) {
         for (i = 0; i < repeat; i++)
         {
           message.channel.sendMessage(newstring);
-        }*//*
+        }*/
+/*
         message.channel.sendMessage(newstring);
     } else if (message.content.startsWith(prefix + 'voice')) {
         //  let args = message.content.split(" ").slice(1);
@@ -243,7 +243,8 @@ String.prototype.replaceAll = function(str1, str2, ignore) {
         if (args.length == 3)
         {
         imgur.update({   id: imageid,  title: args[1],  description: args[2] }, function (err,res) {
-        message.channel.sendMessage(res.data);  });  }*//*
+        message.channel.sendMessage(res.data);  });  }*/
+/*
     } else if (message.content.startsWith(prefix + 'yt')) {
         let args = message.content.split(" ").slice(1);
         //1
@@ -306,7 +307,8 @@ String.prototype.replaceAll = function(str1, str2, ignore) {
     /*} else if (message.content === prefix + 'countmessages') {
         db.get("SELECT COUNT(*) AS co FROM messages WHERE userid = ?1", { 1: message.author.id }, function (err, row) {
             message.reply("You have written " + row.co + " times!");
-        });*//*
+        });*/
+/*
     } else if (message.content.startsWith(prefix + 'scc')) {
         let args = message.content.split(" ").slice(1);
         if(args[0] == "add") { //commandname[1], code[2]
@@ -359,3 +361,6 @@ String.prototype.replaceAll = function(str1, str2, ignore) {
 client.login('MjM2MjQxODY4ODEwMjIzNjE2.CuGQ6A.KPIZIfTWQAbDXnaQXnOsb2VFV24');
 
 //https://m.photofunia.com/effects/retro-wave/?text1=gay&text2=very&text3=cool
+exports.main = {
+    prefix: prefix
+};
