@@ -341,6 +341,6 @@ client.login('MjM2MjQxODY4ODEwMjIzNjE2.CuGQ6A.KPIZIfTWQAbDXnaQXnOsb2VFV24');
 exports.main = {
     prefix: prefix,
     imgur: imgur,
-    youTube: YouTube,
+    youTube: youTube,
     request: request
 };
