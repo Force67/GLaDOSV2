@@ -89,7 +89,9 @@ exports.main = {
     prefix: prefix,
     imgur: imgur,
     youTube: youTube,
-    vm : vm,
+    vm: vm,
+    sqlite3: sqlite3,
+    db: db,
     request: request
 };
 
