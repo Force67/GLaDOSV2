@@ -76,5 +76,11 @@ module.exports = bot => {
             meta.channel.sendMessage("exception: " + e.message);
         }
         });
-    
+    bot.command(glados.main.prefix + 'help')
+        .action(meta => {
+            let message = bot.help() + '\n Show examples under the main help';
+       //     bot.send(meta, message);
+            meta.channel.sendMessage(message);
+        });
+
 };
