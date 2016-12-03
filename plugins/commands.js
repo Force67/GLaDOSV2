@@ -46,9 +46,9 @@ module.exports = bot => {
     bot.command(glados.main.prefix + 'imgur ["multi word argument"]')
         .action((meta, text) => {
             meta.delete();
-            text = text.toLowerCase();
-            if (!text.includes('.gif') || !text.includes('.png' || !text.includes('.jpg'))) {
-                meta.reply('You cant upload files in this format!');
+             let end = text.substr(text.length - 4);
+            if (end != ".png" && end != ".jpg" && end != ".gif") {
+                meta.reply('You cant upload this file to imgur!');
                 return;
             }
             if (text.length < 4) {
