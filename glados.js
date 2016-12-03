@@ -17,31 +17,36 @@ var prefix = '>',
     db = new sqlite3.Database('glados.db', sqlite3.OPEN_READWRITE);
 //////////////////////////////////////////////
 ///XFPARSE 
-var lineReader = require('readline').createInterface({
-    //path2 + '/data/'
-  input: require('fs').createReadStream('settings.xf')
+var split = require('split');
+
+function GetElemenent(element, callback) {
+    fs.createReadStream(path2  + '/data/settings.xf')
+        .pipe(split())
+        .on('data', function(line) {
+            //each chunk now is a seperate line! 
+            ///remove spaces.
+            if (line.includes(element)) {
+                ///remove spaces.
+                var process = line.replace(/ /g, "");
+
+                //delete all brakets.
+                var removebrakets = process.substring(1, process.length - 1);
+
+                //format it to return our desired values...
+                var a = removebrakets.search(":") + 1;
+                var b = removebrakets.length - 1;
+                //  element = removebrakets.substr(a,b)
+                callback(removebrakets.substr(a, b));
+                return;
+            }
+        });
+}
+
+//first we setup the discord api
+GetElemenent("dtoken", function(eleme) {
+    client.login(eleme);
 });
 
-function GetElemenent(element,callback)
-{
-lineReader.on('line', function (line) {
-  if (line.includes(element))
-  {
-  ///remove spaces.
-  var process = line.replace(/ /g,"");
- 
-  //delete all brakets.
-  var removebrakets = process.substring(1,process.length - 1);
-  
-  //format it to return our desired values...
-  var a = removebrakets.search(":") + 1;
-  var b = removebrakets.length - 1;
-//  element = removebrakets.substr(a,b)
-  callback(removebrakets.substr(a,b));
-  console.log(line);
-  }
-});
-}
 ////////////////////////////////////////////
 client.on('ready', () => {
     console.log('Welcome to GLaDOS 2.0');
@@ -53,23 +58,16 @@ client.on('ready', () => {
         });
     })
     console.log("Loading Settings...");
+    //now 3rd party stuff
     GetElemenent("imgurtoken",function(eleme)
     {
         imgur.setClientID(eleme);
-      //  console.log(eleme);
-      
     });
-   
     GetElemenent("yttoken",function(eleme)
     {
         youTube.setKey(eleme);
-         console.log(eleme);
     });
-    //init imgur
-   // imgur.setClientID("bf01b508a810247");
-    //youtube
-    //youTube.setKey('AIzaSyCVqkO07JjKZyenxdEub4n2RE22a7P3Qhs');
-    //youtube.addParam('type', 'video');
+
     enabletranslation = true;
 });
 
@@ -127,7 +125,6 @@ function setgamehandler(msg) {
     });
 }
 
-client.login('MjM2MjQxODY4ODEwMjIzNjE2.CuGQ6A.KPIZIfTWQAbDXnaQXnOsb2VFV24');
 exports.main = {
     prefix: prefix,
     imgur: imgur,
@@ -180,55 +177,7 @@ exports.main = {
             message.channel.sendMessage('translate module not unlocked yet !');
         }
 
-    /*} else if (message.content === prefix + 'countmessages') {
-        db.get("SELECT COUNT(*) AS co FROM messages WHERE userid = ?1", { 1: message.author.id }, function (err, row) {
-            message.reply("You have written " + row.co + " times!");
-        });*/
-/*
-    } else if (message.content.startsWith(prefix + 'scc')) {
-        let args = message.content.split(" ").slice(1);
-        if(args[0] == "add") { //commandname[1], code[2]
-            //prüfen ob es diesen command schon für dieser serverid gibt
-            db.get("SELECT COUNT(*) AS co FROM scc WHERE command = ?1 AND serverid = ?2", { 1: args[1], 2: message.guild.id  }, function (err, row) {
-                if(row.co || args[1] == "add") {
-                    message.reply("SCC command " + args[1] + " already exist for this server or is reserved!");
-                } else {
-                    //we only care about argument 
-                    try
-                    {
-                    var finalinsert = args.join().slice(0);
-                    //add time return new Date().getTime();
-                    var morefinalinsert = finalinsert.substr(4,finalinsert.length);
-                    var veryfinalinsert = morefinalinsert.split(",").join(" ");
-                    message.reply(veryfinalinsert);
-                    }
-                    catch (e)
-                    {
-                        message.reply("The issue seems to be " + e);
-                    }
-                                                                                                    // args[2]
-                    db.run("INSERT INTO scc (command, code, serverid) VALUES(?1, ?2, ?3)", { 1: args[1], 2: veryfinalinsert, 3: message.guild.id });
-                    message.reply("SCC command " + args[1] + " added for this server!");
-                }
-            });
-        } else {
-            db.get("SELECT COUNT(*) AS co FROM scc WHERE command = ?1 AND serverid = ?2", { 1: args[0], 2: message.guild.id  }, function (err, row) {
-                if(row.co) {
-                    db.get("SELECT * FROM scc WHERE command = ?1 AND serverid = ?2", { 1: args[0], 2: message.guild.id  }, function (err, row) {
-                        try {
-                            const script = new vm.Script(row.code, {
-                                filename: 'myfile.vm'
-                            });
-                            message.channel.sendMessage(script.runInThisContext());
-                        } catch (e) {
-                            message.channel.sendMessage("exception: " + e.message);
-                        }
-                    });
-                } else {
-                    message.reply("SCC command " + args[0] + " not exist!");
-                }
-            });
-        }
+
         //
     }
 });
