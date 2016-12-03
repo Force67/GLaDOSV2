@@ -22,10 +22,6 @@ client.on('ready', () => {
 
     youTube.setKey('AIzaSyCVqkO07JjKZyenxdEub4n2RE22a7P3Qhs');
     //	youtube.addParam('type', 'video');
-
-    //init youtube
-    // youTube.setKey('AIzaSyCVqkO07JjKZyenxdEub4n2RE22a7P3Qhs');
-
     enabletranslation = true;
 });
 
@@ -69,18 +65,6 @@ client.on('message', msg => {
 //https://eslachance.gitbooks.io/discord-js-bot-guide/content/samples/message_reply_array.html
 
 
-var channelresponses = {
-    'myid': "gay",
-};
-
-var botcommands = {
-    "myid": {
-        process: function(client, message) {
-            message.reply('s ID is ' + message.author.id);
-        }
-    }
-}
-
 function _implcheckid(id, callback) {
     var lineReader = require('readline').createInterface({
         input: require('fs').createReadStream('IDS.txt')
@@ -123,9 +107,6 @@ var gamevar = "NULL";
 var spamvar = "fuck";
 var spambool = false;
 
-String.prototype.replaceAll = function(str1, str2, ignore) {
-    return this.replace(new RegExp(str1.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g, "\\$&"), (ignore ? "gi" : "g")), (typeof(str2) == "string") ? str2.replace(/\$/g, "$$$$") : str2);
-}
 
 //////////////////////////////////////////////
 /*client.on('message', message => {
@@ -362,5 +343,6 @@ client.login('MjM2MjQxODY4ODEwMjIzNjE2.CuGQ6A.KPIZIfTWQAbDXnaQXnOsb2VFV24');
 
 //https://m.photofunia.com/effects/retro-wave/?text1=gay&text2=very&text3=cool
 exports.main = {
-    prefix: prefix
+    prefix: prefix,
+    imgur: imgur
 };

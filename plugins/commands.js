@@ -42,5 +42,27 @@ module.exports = bot => {
     .action((meta, text) => {
         meta.channel.sendMessage(text);
     });      
-
+ bot.command(glados.main.prefix + 'imgur ["multi word argument"]')
+    .action((meta, text) => {
+        meta.delete();
+        if (!text.includes('.gif') || !text.includes('.png' || !text.includes('.jpg')))
+        {
+            meta.reply('You cant upload files in this format!');
+            return;
+        }
+         if (text.length < 4)
+        {
+            meta.reply('This link is not valid!');
+            return;
+        }
+        try
+        {
+        glados.main.imgur.upload(text, function(err, res) {
+        meta.channel.sendMessage(res.data.link); });
+        }
+        catch (issue)
+        {
+            meta.channel.sendMessage('imgur is offline or a error occured in the bot! (' + issue + ')');
+        }
+    });      
 };
