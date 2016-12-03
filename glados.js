@@ -4,6 +4,7 @@ const client = new Discord.Client();
 const vm = require('vm');
 const bot = require('bot-commander');
 const fs = require('fs');
+const request = require('request');
 //////////////////////////////////////////////
 var prefix = '>',
     imgur = require('imgur-node-api'),
@@ -12,11 +13,17 @@ var prefix = '>',
     youTube = new YouTube(),
     enabletranslation = false,
     sqlite3 = require('sqlite3').verbose(),
-    db = new sqlite3.Database('glados.db', sqlite3.OPEN_READWRITE),
-    pluginsLoaded = false;
+    db = new sqlite3.Database('glados.db', sqlite3.OPEN_READWRITE);
 //////////////////////////////////////////////
 client.on('ready', () => {
     console.log('Welcome to GLaDOS 2.0');
+    //init plugins
+    fs.readdir('./plugins/', (err, files) => {
+        files.forEach(file => {
+            console.log("Loading plugin: " + file);
+            bot.load('./plugins/' + file);
+        });
+    })
     //init imgur
     imgur.setClientID("bf01b508a810247");
     //youtube
@@ -44,15 +51,6 @@ function parameter(len, parameter_) {
 //////////////////////////////////////////////////////////////////////////
 
 client.on('message', msg => {
-    if (!pluginsLoaded) {
-        fs.readdir('./plugins/', (err, files) => {
-            files.forEach(file => {
-                console.log("Loading plugin: " + file);
-                bot.load('./plugins/' + file);
-            });
-        })
-        pluginsLoaded = true;
-    }
     bot.parse(msg.content, msg);
 });
 
@@ -342,5 +340,6 @@ var spambool = false;
 client.login('MjM2MjQxODY4ODEwMjIzNjE2.CuGQ6A.KPIZIfTWQAbDXnaQXnOsb2VFV24');
 exports.main = {
     prefix: prefix,
-    imgur: imgur
+    imgur: imgur,
+    request: request
 };
