@@ -19,7 +19,7 @@ client.on('ready', () => {
     console.log('Welcome to GLaDOS 2.0');
     //init imgur
     imgur.setClientID("bf01b508a810247");
-
+    //youtube
     youTube.setKey('AIzaSyCVqkO07JjKZyenxdEub4n2RE22a7P3Qhs');
     //	youtube.addParam('type', 'video');
     enabletranslation = true;
@@ -340,8 +340,6 @@ var spambool = false;
 */
 
 client.login('MjM2MjQxODY4ODEwMjIzNjE2.CuGQ6A.KPIZIfTWQAbDXnaQXnOsb2VFV24');
-
-//https://m.photofunia.com/effects/retro-wave/?text1=gay&text2=very&text3=cool
 exports.main = {
     prefix: prefix,
     imgur: imgur
