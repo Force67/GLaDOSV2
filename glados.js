@@ -18,7 +18,9 @@ var prefix = '>',
     enabletranslation = false,
     sqlite3 = require('sqlite3').verbose(),
     db = new sqlite3.Database('glados.db', sqlite3.OPEN_READWRITE),
-    globalpaste = "";
+    pastebin = ""
+    ;
+
 //////////////////////////////////////////////
 ///XFPARSE 
 function GetElemenent(element, callback) {
@@ -69,7 +71,7 @@ client.on('ready', () => {
     });
     GetElemenent("pastebintoken",function(eleme)
     {
-        globalpaste = eleme;
+        exports.pastebin = eleme;
     });
 
     enabletranslation = true;
@@ -138,9 +140,10 @@ exports.main = {
     db: db,
     request: request,
     http: http,
-    url: url,
-    pastebin : globalpaste
+  //  pastebin : pastebin,
+    url: url
 };
+
 
 //////////////////////////////////////////////
 /*client.on('message', message => {
