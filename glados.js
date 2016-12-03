@@ -5,6 +5,7 @@ const vm = require('vm');
 const bot = require('bot-commander');
 const fs = require('fs');
 const request = require('request');
+const curl = require( 'curlrequest' );
 //////////////////////////////////////////////
 var prefix = '>',
     imgur = require('imgur-node-api'),
@@ -28,7 +29,7 @@ client.on('ready', () => {
     imgur.setClientID("bf01b508a810247");
     //youtube
     youTube.setKey('AIzaSyCVqkO07JjKZyenxdEub4n2RE22a7P3Qhs');
-    //	youtube.addParam('type', 'video');
+    //youtube.addParam('type', 'video');
     enabletranslation = true;
 });
 
@@ -342,5 +343,6 @@ exports.main = {
     prefix: prefix,
     imgur: imgur,
     youTube: youTube,
-    request: request
+    request: request,
+    curl: curl
 };
