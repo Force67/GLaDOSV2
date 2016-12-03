@@ -11,10 +11,38 @@ var prefix = '>',
     path = require('path'),
     YouTube = require('youtube-node'),
     youTube = new YouTube(),
+    path2 = process.cwd(),
     enabletranslation = false,
     sqlite3 = require('sqlite3').verbose(),
     db = new sqlite3.Database('glados.db', sqlite3.OPEN_READWRITE);
 //////////////////////////////////////////////
+///XFPARSE 
+var lineReader = require('readline').createInterface({
+    //path2 + '/data/'
+  input: require('fs').createReadStream('settings.xf')
+});
+
+function GetElemenent(element,callback)
+{
+lineReader.on('line', function (line) {
+  if (line.includes(element))
+  {
+  ///remove spaces.
+  var process = line.replace(/ /g,"");
+ 
+  //delete all brakets.
+  var removebrakets = process.substring(1,process.length - 1);
+  
+  //format it to return our desired values...
+  var a = removebrakets.search(":") + 1;
+  var b = removebrakets.length - 1;
+//  element = removebrakets.substr(a,b)
+  callback(removebrakets.substr(a,b));
+  console.log(line);
+  }
+});
+}
+////////////////////////////////////////////
 client.on('ready', () => {
     console.log('Welcome to GLaDOS 2.0');
     //init plugins
@@ -24,10 +52,23 @@ client.on('ready', () => {
             bot.load('./plugins/' + file);
         });
     })
+    console.log("Loading Settings...");
+    GetElemenent("imgurtoken",function(eleme)
+    {
+        imgur.setClientID(eleme);
+      //  console.log(eleme);
+      
+    });
+   
+    GetElemenent("yttoken",function(eleme)
+    {
+        youTube.setKey(eleme);
+         console.log(eleme);
+    });
     //init imgur
-    imgur.setClientID("bf01b508a810247");
+   // imgur.setClientID("bf01b508a810247");
     //youtube
-    youTube.setKey('AIzaSyCVqkO07JjKZyenxdEub4n2RE22a7P3Qhs');
+    //youTube.setKey('AIzaSyCVqkO07JjKZyenxdEub4n2RE22a7P3Qhs');
     //youtube.addParam('type', 'video');
     enabletranslation = true;
 });
@@ -60,6 +101,8 @@ function _implcheckid(id, callback) {
         }
     });
 }
+
+
 
 var md5 = require("md5");
 
