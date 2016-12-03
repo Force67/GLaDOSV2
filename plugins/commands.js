@@ -4,6 +4,7 @@
 //
 //////////////////////////////////////////////////////////////////////////
 var glados = require('../glados.js');
+var vm = glados.main.vm;
 module.exports = bot => {
 
     bot.command(glados.main.prefix + 'botinfo')
@@ -47,4 +48,33 @@ module.exports = bot => {
         .action((meta, text) => {
             meta.channel.sendMessage(text);
         });
+    bot.command(glados.main.prefix + 'voice ["multi word argument"]')
+        .action((meta, text) => {
+            meta.channel.sendTTSMessage(text);
+        });
+    bot.command(glados.main.prefix + 'status ["multi word argument"]')
+        .action((meta, text) => {
+            let check = text;
+            if (check != 'online' && check != 'dnd' && check != 'idle' && check != 'offline')
+            {
+                meta.reply('This status does not exist!');
+                return;
+            }
+            else
+            {
+                meta.client.user.setStatus(check);
+            }
+        });
+    bot.command(glados.main.prefix + 'eval ["multi word argument"]')
+        .action((meta, text) => {
+            try {
+            const script = new vm.Script(text, {
+                filename: 'myfile.vm'
+            });
+            meta.channel.sendMessage(script.runInThisContext());
+        } catch (e) {
+            meta.channel.sendMessage("exception: " + e.message);
+        }
+        });
+    
 };
