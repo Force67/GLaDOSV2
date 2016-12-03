@@ -1,0 +1,8 @@
+https://github.com/tj/commander.js
+
+MasterZero - Today at 12:14 AM
+kannst bei dir dann schonmal const bot = require(bot-commander); machen
+Force 67 - Today at 12:14 AM
+zugreifen ?
+MasterZero - Today at 12:14 AM
+npm install bot-commander
