@@ -33,7 +33,7 @@ module.exports = bot => {
         });
 
     cmd
-        .command('run ["name"]')
+        .command('run ["command name"]')
         .showHelpOnEmpty(false)
         .action((meta, name) => {
             if (name == null)

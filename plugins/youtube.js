@@ -6,7 +6,7 @@
 var glados = require('../glados.js');
 module.exports = bot => {
 
-    bot.command(glados.main.prefix + 'yt ["multi word argument"]')
+    bot.command(glados.main.prefix + 'yt ["search terms"]')
         .action((meta, text) => {
             glados.main.youTube.search(text, 1, function(error, result) {
                 if (error) {

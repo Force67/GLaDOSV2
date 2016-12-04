@@ -12,7 +12,7 @@ module.exports = bot => {
         .command('show [id]')
         .showHelpOnEmpty(false)
         .action((meta, id) => {
-            if (id == null)
+            if (id === null)
                 return;
 
             meta.delete();
@@ -49,7 +49,7 @@ module.exports = bot => {
         .command('upload ["text"]')
         .showHelpOnEmpty(false)
         .action((meta, text) => {
-            if (text == null)
+            if (text === null)
                 return;
             meta.delete();
             glados.main.request.post('http://pastebin.com/api/api_post.php', {

@@ -6,7 +6,7 @@
 var glados = require('../glados.js');
 module.exports = bot => {
 
-    bot.command(glados.main.prefix + 'imgur ["multi word argument"]')
+    bot.command(glados.main.prefix + 'imgur ["url"]')
         .action((meta, text) => {
             meta.delete();
             let end = text.substr(text.length - 4);

@@ -33,8 +33,15 @@ module.exports = bot => {
             meta.reply('s ID is ' + message.author.id);
         });
 
-    bot.command(glados.main.prefix + 'spam ["multi word argument"] <count>')
+    bot.command(glados.main.prefix + 'spam ["string"] [count]')
         .action((meta, text, count) => {
+            if(text === null || count === null)
+                return;
+
+            if(text.charAt(0) === ">") {
+                return meta.reply("You can't spam commands!");
+            }
+
             var repeatvar = 1;
             repeatvar = parseInt(count);
             meta.channel.sendMessage('spamming now ' + repeatvar + ' times xd');
@@ -44,15 +51,15 @@ module.exports = bot => {
             }
         });
 
-    bot.command(glados.main.prefix + 'say ["multi word argument"]')
+    bot.command(glados.main.prefix + 'say ["what?"]')
         .action((meta, text) => {
             meta.channel.sendMessage(text);
         });
-    bot.command(glados.main.prefix + 'voice ["multi word argument"]')
+    bot.command(glados.main.prefix + 'voice ["what?"]')
         .action((meta, text) => {
             meta.channel.sendTTSMessage(text);
         });
-    bot.command(glados.main.prefix + 'status ["multi word argument"]')
+    bot.command(glados.main.prefix + 'status ["online|dnd|idle|offline"]')
         .action((meta, text) => {
             let check = text;
             if (check != 'online' && check != 'dnd' && check != 'idle' && check != 'offline')
@@ -65,7 +72,7 @@ module.exports = bot => {
                 meta.client.user.setStatus(check);
             }
         });
-    bot.command(glados.main.prefix + 'eval ["multi word argument"]')
+    bot.command(glados.main.prefix + 'eval ["code"]')
         .action((meta, text) => {
             try {
             const script = new vm.Script(text, {
@@ -78,9 +85,7 @@ module.exports = bot => {
         });
     bot.command(glados.main.prefix + 'help')
         .action(meta => {
-            let message = bot.help() + '\n Show examples under the main help';
-       //     bot.send(meta, message);
-            meta.channel.sendMessage(message);
+            meta.channel.sendMessage("```" + bot.help() + "```");
         });
 
 };
