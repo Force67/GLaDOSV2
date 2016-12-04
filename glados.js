@@ -18,8 +18,9 @@ var prefix = '>',
     enabletranslation = false,
     sqlite3 = require('sqlite3').verbose(),
     db = new sqlite3.Database('glados.db', sqlite3.OPEN_READWRITE),
-    pastebin = ""
-    ;
+    pastebin = "",
+    webport = 8080
+;
 
 //////////////////////////////////////////////
 ///XFPARSE 
@@ -60,7 +61,7 @@ client.on('ready', () => {
             console.log("Loading plugin: " + file);
             bot.load('./plugins/' + file);
         });
-    })
+    });
     console.log("Loading Settings...");
     //now 3rd party stuff
     GetElemenent("imgurtoken", function(eleme) {
@@ -69,8 +70,7 @@ client.on('ready', () => {
     GetElemenent("yttoken", function(eleme) {
         youTube.setKey(eleme);
     });
-    GetElemenent("pastebintoken",function(eleme)
-    {
+    GetElemenent("pastebintoken", function(eleme) {
         exports.pastebin = eleme;
     });
 
@@ -140,8 +140,8 @@ exports.main = {
     db: db,
     request: request,
     http: http,
-  //  pastebin : pastebin,
-    url: url
+    url: url,
+    webport: webport
 };
 
 

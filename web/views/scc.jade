@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  table.table.table-responsive
+    thead
+      tr
+        th Command
+        th Code
+        th ServerID
+    tbody
+      each item in scc
+        tr
+          td #{item.command}
+          td 
+            pre
+                code.javascript #{item.code}
+          td #{item.serverid}
