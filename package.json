@@ -8,6 +8,7 @@
     "blueimp-md5": "^2.6.0",
     "body-parser": "^1.15.2",
     "bot-commander": "^1.1.1",
+    "cheerio": "^0.22.0",
     "cookie-parser": "^1.4.3",
     "cookies": "^0.6.2",
     "discord.js": "^10.0.1",

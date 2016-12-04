@@ -8,6 +8,7 @@ const request = require('request');
 const split = require('split');
 const http = require('http');
 const url = require('url');
+const cheerio = require('cheerio');
 //////////////////////////////////////////////
 var prefix = '>',
     imgur = require('imgur-node-api'),
@@ -142,7 +143,8 @@ exports.main = {
     request: request,
     http: http,
     url: url,
-    webport: webport
+    webport: webport,
+    cheerio: cheerio
 };
 
 
