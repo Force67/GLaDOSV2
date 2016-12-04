@@ -73,6 +73,7 @@ client.on('ready', () => {
     GetElemenent("pastebintoken", function(eleme) {
         exports.pastebin = eleme;
     });
+    console.log("Finished loading Settings");
 
     enabletranslation = true;
 });
