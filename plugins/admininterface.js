@@ -38,7 +38,6 @@ module.exports = bot => {
 
     /* GET scc page. */
     app.get('/scc', function(req, res, next) {
-        var scclist;
         glados.main.db.all("SELECT * FROM scc", {}, {}, function(err, rows) {
             res.render('scc', {
                 title: 'GLaDOS - SCC',
