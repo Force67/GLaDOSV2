@@ -40,11 +40,10 @@ module.exports = bot => {
     app.get('/scc', function(req, res, next) {
         var scclist;
         glados.main.db.all("SELECT * FROM scc", {}, {}, function(err, rows) {
-            scclist = rows;
-        });
-        res.render('scc', {
-            title: 'GLaDOS - SCC',
-            scc: scclist
+            res.render('scc', {
+                title: 'GLaDOS - SCC',
+                "scc": rows
+            });
         });
     });
 
