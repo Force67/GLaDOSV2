@@ -15,6 +15,7 @@ module.exports = bot => {
         .action((meta, command, code) => {
             if (command == null || code == null)
                 return meta.reply("Usage: " + glados.main.prefix + "scc add \"NAME\" \"CODE\"");
+                
             glados.main.db.get("SELECT COUNT(*) AS co FROM scc WHERE command = ?1 AND serverid = ?2", {
                 1: command,
                 2: meta.guild.id
@@ -67,8 +68,6 @@ module.exports = bot => {
         .command('list')
         .showHelpOnEmpty(false)
         .action((meta) => {
-
-
             glados.main.db.all("SELECT * FROM scc WHERE serverid = ?1", {
                 1: meta.guild.id
             }, function(err, rows) {

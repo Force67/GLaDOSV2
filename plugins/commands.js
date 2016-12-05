@@ -30,15 +30,15 @@ module.exports = bot => {
 
     bot.command(glados.main.prefix + 'myid')
         .action((meta, arg) => {
-            meta.reply('s ID is ' + message.author.id);
+            meta.reply('s ID is ' + meta.author.id);
         });
 
     bot.command(glados.main.prefix + 'spam ["string"] [count]')
         .action((meta, text, count) => {
-            if(text === null || count === null)
+            if (text === null || count === null)
                 return;
 
-            if(text.charAt(0) === ">") {
+            if (text.charAt(0) === ">") {
                 return meta.reply("You can't spam commands!");
             }
 
@@ -62,30 +62,37 @@ module.exports = bot => {
     bot.command(glados.main.prefix + 'status ["online|dnd|idle|offline"]')
         .action((meta, text) => {
             let check = text;
-            if (check != 'online' && check != 'dnd' && check != 'idle' && check != 'offline')
-            {
+            if (check != 'online' && check != 'dnd' && check != 'idle' && check != 'offline') {
                 meta.reply('This status does not exist!');
                 return;
-            }
-            else
-            {
+            } else {
                 meta.client.user.setStatus(check);
             }
         });
     bot.command(glados.main.prefix + 'eval ["code"]')
         .action((meta, text) => {
-            try {
-            const script = new vm.Script(text, {
-                filename: 'myfile.vm'
+            glados.isAdmin(meta.author.id, function(t) {
+                if (!t) {
+                    return meta.reply(glados.main.norights);
+                } else {
+                    try {
+                        const script = new vm.Script(text, {
+                            filename: 'myfile.vm'
+                        });
+                        meta.channel.sendMessage(script.runInThisContext());
+                    } catch (e) {
+                        meta.channel.sendMessage("exception: " + e.message);
+                    }
+                }
             });
-            meta.channel.sendMessage(script.runInThisContext());
-        } catch (e) {
-            meta.channel.sendMessage("exception: " + e.message);
-        }
         });
     bot.command(glados.main.prefix + 'help')
         .action(meta => {
             meta.channel.sendMessage("```" + bot.help() + "```");
+        });
+    bot.command(glados.main.prefix + 'roles')
+        .action(meta => {
+            console.log(meta.member);
         });
 
 };

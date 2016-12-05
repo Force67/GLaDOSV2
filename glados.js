@@ -20,8 +20,8 @@ var prefix = '>',
     sqlite3 = require('sqlite3').verbose(),
     db = new sqlite3.Database('glados.db', sqlite3.OPEN_READWRITE),
     pastebin = "",
-    webport = 8080
-;
+    webport = 8080,
+    norights = "Insufficient client rights!";
 
 //////////////////////////////////////////////
 ///XFPARSE 
@@ -133,6 +133,18 @@ function setgamehandler(msg) {
     });
 }
 
+exports.isAdmin = function(discordid, callback) {
+    db.get("SELECT COUNT(*) AS co FROM admins WHERE discordid = ?1", {
+        1: discordid
+    }, function(err, row) {
+        if(err) {
+            console.log("ERROR isAdmin: " + err);
+            callback(false);
+        }
+        callback(row.co);
+    });
+}
+
 exports.main = {
     prefix: prefix,
     imgur: imgur,
@@ -144,7 +156,9 @@ exports.main = {
     http: http,
     url: url,
     webport: webport,
-    cheerio: cheerio
+    cheerio: cheerio,
+    client: client,
+    norights: norights
 };
 
 
