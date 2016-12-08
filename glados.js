@@ -90,7 +90,7 @@ client.on('ready', () => {
         }
     });
     //our bot invite link
-    invitelink = 'https://discordapp.com/oauth2/authorize?client_id=' + client.user.id + '&scope=bot&permissions=0'
+    exports.invitelink = 'https://discordapp.com/oauth2/authorize?client_id=' + client.user.id + '&scope=bot&permissions=0';
     console.log("Finished loading Settings");
     enabletranslation = true;
 });
@@ -123,7 +123,6 @@ exports.main = {
     url: url,
     webport: webport,
     cheerio: cheerio,
-    invitelink : invitelink,
     client: client,
     norights: norights,
     cleverbot: cleverbot

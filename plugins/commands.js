@@ -9,7 +9,31 @@ module.exports = bot => {
 
     bot.command(glados.main.prefix + 'botinfo')
         .action((meta, arg) => {
-            meta.reply("how are you?");
+            meta.channel.sendMessage("",{embed :{
+            color : 4857424, //this are decimal color codes
+            author: {
+                name: meta.client.user.username,
+                icon_url: meta.client.user.avatarURL
+            },
+            title: 'Botinfo:',
+            url: glados.invitelink,
+            fields: [
+                {
+                     name: 'Creators',
+                     value: 'Developed by Force67 & MasterZero with <3'
+                },
+                {
+                     name: 'Stats',
+                     value: 'Uptime : ' + meta.client.uptime
+                },
+               {
+                     name: 'Invite link:',
+                     value: '[klick to invite](' + glados.invitelink + ')'
+                },
+            ],
+            
+        }});
+        
         });
 
     bot.command(glados.main.prefix + 'hi')
@@ -132,19 +156,16 @@ msg.channel.sendMessage("", {embed: {
     //this requires discord.js indev
     bot.command(glados.main.prefix + 'help')
         .action(meta => {
-        //    meta.channel.sendMessage("```" + bot.help() + "```");
         meta.channel.sendMessage("",{embed :{
-            color : 3447003, //rnd_selection(3447003, 14365491, 3201849, 13818670, 13577435, 7089371, 14383916),
+            color : 3447003, //this are decimal color codes
             author: {
                 name: meta.client.user.username,
                 icon_url: meta.client.user.avatarURL
             },
             title: 'All commands:',
-            url: glados.main.invitelink,
+            url: glados.invitelink,
             description: bot.help(),
         }});
-
-
         });
 
 };
