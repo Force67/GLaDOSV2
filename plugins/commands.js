@@ -53,6 +53,7 @@ module.exports = bot => {
 
     bot.command(glados.main.prefix + 'say ["what?"]')
         .action((meta, text) => {
+            meta.delete();
             meta.channel.sendMessage(text);
         });
     bot.command(glados.main.prefix + 'voice ["what?"]')
@@ -89,10 +90,6 @@ module.exports = bot => {
     bot.command(glados.main.prefix + 'help')
         .action(meta => {
             meta.channel.sendMessage("```" + bot.help() + "```");
-        });
-    bot.command(glados.main.prefix + 'roles')
-        .action(meta => {
-            console.log(meta.member);
         });
 
 };

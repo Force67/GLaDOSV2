@@ -9,6 +9,7 @@ const split = require('split');
 const http = require('http');
 const url = require('url');
 const cheerio = require('cheerio');
+const cleverbot = require('cleverbot.io');
 //////////////////////////////////////////////
 var prefix = '>',
     imgur = require('imgur-node-api'),
@@ -89,6 +90,7 @@ var googleTranslate = require('google-translate')('AIzaSyCVqkO07JjKZyenxdEub4n2R
 //////////////////////////////////////////////////////////////////////////
 
 client.on('message', msg => {
+    console.log(msg.content);
     bot.parse(msg.content, msg);
 });
 //https://eslachance.gitbooks.io/discord-js-bot-guide/content/samples/message_reply_array.html
@@ -158,7 +160,8 @@ exports.main = {
     webport: webport,
     cheerio: cheerio,
     client: client,
-    norights: norights
+    norights: norights,
+    cleverbot: cleverbot
 };
 
 
