@@ -10,6 +10,7 @@ const http = require('http');
 const url = require('url');
 const cheerio = require('cheerio');
 const cleverbot = require('cleverbot.io');
+const ytdl = require('ytdl-core');
 //////////////////////////////////////////////
 var prefix = '>',
     imgur = require('imgur-node-api'),
@@ -113,6 +114,7 @@ exports.isAdmin = function(discordid, callback) {
 
 exports.main = {
     prefix: prefix,
+    Discord : Discord,
     imgur: imgur,
     youTube: youTube,
     vm: vm,
@@ -125,5 +127,6 @@ exports.main = {
     cheerio: cheerio,
     client: client,
     norights: norights,
+    ytdl : ytdl,
     cleverbot: cleverbot
 };
