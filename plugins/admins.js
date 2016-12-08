@@ -10,16 +10,47 @@ module.exports = bot => {
         .showHelpOnEmpty(false)
 
     cmd
+    //requires discord.js indev
         .command('list')
         .showHelpOnEmpty(false)
         .action((meta) => {
             glados.main.db.all("SELECT * FROM admins", function(err, rows) {
-                meta.channel.sendMessage("`GLaDOS admins:\n-----------------------------------------`");
+               // meta.channel.sendMessage("`GLaDOS admins:\n-----------------------------------------`");
+               let text = "";
                 rows.forEach(function(row) {
                     let client = glados.main.client.users.get(row.discordid);
-                    meta.channel.sendMessage("`" + client.username + " (" + row.discordid + ")`");
+                //    meta.channel.sendMessage("`" + client.username + " (" + row.discordid + ")`");
+                    text = text + client.username + "( " + row.discordid + " )" + "\n";
                 });
-                meta.channel.sendMessage("`----------------------------------------- \n`");
+         //       meta.channel.sendMessage("`----------------------------------------- \n`");
+
+
+         ////////////
+            meta.channel.sendMessage("",{embed :{
+            color : 14383916, 
+            author: {
+                name: meta.client.user.username,
+                icon_url: meta.client.user.avatarURL
+            },
+            title: 'GLaDOS Admins:',
+           // description: text,
+           fields: [
+            {
+              name: 'Force67',
+              value: 'Test test test'
+            },
+            {
+             name: 'MasterZero',
+             value: 'Test'
+             },
+          ],
+
+        }});
+        ////////
+
+
+
+
             });
         });
 

@@ -87,9 +87,52 @@ module.exports = bot => {
                 }
             });
         });
+    /*
+msg.channel.sendMessage("", {embed: {
+  color: 3447003,
+  author: {
+    name: bot.user.username,
+    icon_url: bot.user.avatarURL
+  },
+  title: 'This is an embed',
+  url: 'http://google.com',
+  description: 'This is a test embed to showcase what they look like and what they can do.',
+  fields: [
+    {
+      name: 'Fields',
+      value: 'They can have different fields with small headlines.'
+    },
+    {
+      name: 'Masked links',
+      value: 'You can put [masked links](http://google.com) inside of rich embeds.'
+    },
+    {
+      name: 'Markdown',
+      value: 'You can put all the usual Markdown inside of them.'
+    }
+  ],
+  timestamp: new Date(),
+  footer: {
+    icon_url: bot.user.avatarURL,
+    text: '© Example'
+  }
+}});
+    */
+    //this requires discord.js indev
     bot.command(glados.main.prefix + 'help')
         .action(meta => {
-            meta.channel.sendMessage("```" + bot.help() + "```");
+        //    meta.channel.sendMessage("```" + bot.help() + "```");
+        meta.channel.sendMessage("",{embed :{
+            color : 3447003, //rnd_selection(3447003, 14365491, 3201849, 13818670, 13577435, 7089371, 14383916),
+            author: {
+                name: meta.client.user.username,
+                icon_url: meta.client.user.avatarURL
+            },
+            title: 'All commands:',
+            description: bot.help(),
+        }});
+
+
         });
 
 };
