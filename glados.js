@@ -22,6 +22,7 @@ var prefix = '>',
     db = new sqlite3.Database('glados.db', sqlite3.OPEN_READWRITE),
     pastebin = "",
     webport = 8080,
+    invitelink = "",
     norights = "Insufficient client rights!";
 
 //////////////////////////////////////////////
@@ -76,7 +77,6 @@ client.on('ready', () => {
         client.user.setGame(eleme);
     });
     //random startup image setting
-    
     GetElemenent("rndavartar", function(eleme) {
         if (eleme == "true")
         {
@@ -89,7 +89,8 @@ client.on('ready', () => {
             }
         }
     });
-
+    //our bot invite link
+    invitelink = 'https://discordapp.com/oauth2/authorize?client_id=' + client.user.id + '&scope=bot&permissions=0'
     console.log("Finished loading Settings");
     enabletranslation = true;
 });
@@ -122,6 +123,7 @@ exports.main = {
     url: url,
     webport: webport,
     cheerio: cheerio,
+    invitelink : invitelink,
     client: client,
     norights: norights,
     cleverbot: cleverbot

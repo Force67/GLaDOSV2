@@ -140,6 +140,7 @@ msg.channel.sendMessage("", {embed: {
                 icon_url: meta.client.user.avatarURL
             },
             title: 'All commands:',
+            url: glados.main.invitelink,
             description: bot.help(),
         }});
 
