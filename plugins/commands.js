@@ -56,6 +56,16 @@ module.exports = bot => {
             meta.delete();
             meta.channel.sendMessage(text);
         });
+    /*
+    bot.command(glados.main.prefix + 'setgame ["gamename"]')
+        .action((meta, text) => {
+             glados.isAdmin(meta.author.id, function(t) {
+                if (!t) {
+                    meta.reply(glados.main.norights);
+                } else {
+            meta.client.user.setGame(text);
+            }
+        });*/
     bot.command(glados.main.prefix + 'voice ["what?"]')
         .action((meta, text) => {
             meta.channel.sendTTSMessage(text);
