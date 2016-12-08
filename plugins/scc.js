@@ -71,11 +71,22 @@ module.exports = bot => {
             glados.main.db.all("SELECT * FROM scc WHERE serverid = ?1", {
                 1: meta.guild.id
             }, function(err, rows) {
-                meta.channel.sendMessage("`SCC commands for this server:\n-----------------------------------------`");
+                let list = "";
                 rows.forEach(function (row) {
-                    meta.channel.sendMessage("`NAME -> " + row.command + "\nCODE -> " + row.code + "`");
+                    list = list + "**" + row.command + "**\n`" + row.code + "`\n\n";
                 });
-                meta.channel.sendMessage("`----------------------------------------- \n`");
+
+
+                meta.channel.sendMessage("",{embed :{
+                    color : 41216, //rnd_selection(3447003, 14365491, 3201849, 13818670, 13577435, 7089371, 14383916),
+                    author: {
+                        name: meta.client.user.username,
+                        icon_url: meta.client.user.avatarURL
+                    },
+                    title: 'SCC:',
+                    description: list,
+                }});
+
             });
         });
 };

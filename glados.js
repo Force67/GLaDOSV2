@@ -57,6 +57,7 @@ GetElemenent("dtoken", function(eleme) {
 ////////////////////////////////////////////
 client.on('ready', () => {
     console.log('Welcome to GLaDOS 2.0');
+    client.user.setGame("Need help? Type >help");
     //init plugins
     fs.readdir('./plugins/', (err, files) => {
         files.forEach(file => {
@@ -90,7 +91,6 @@ var googleTranslate = require('google-translate')('AIzaSyCVqkO07JjKZyenxdEub4n2R
 //////////////////////////////////////////////////////////////////////////
 
 client.on('message', msg => {
-    console.log(msg.content);
     bot.parse(msg.content, msg);
 });
 //https://eslachance.gitbooks.io/discord-js-bot-guide/content/samples/message_reply_array.html
