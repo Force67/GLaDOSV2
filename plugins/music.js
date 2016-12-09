@@ -16,40 +16,30 @@ var ready = true;
 var allowed = true;
 var channelid = '256524366928412672';
 
-
-
-
 module.exports = bot => {
-
-
-
     let cmd = bot
         .command(glados.main.prefix + 'music')
         .showHelpOnEmpty(false)
 
     cmd.command('play ["url"]')
+		.showHelpOnEmpty(false)
         .action((meta, text) => {
-            if (text == null || meta.channel.id != channelid || allowed == false) {
+            if (text == null || meta.channel.id != channelid || allowed === false) {
                 return;
             }
             meta.delete();
             glados.main.ytinfo(youtube_parser(text), function(err, videoInfo) {
                 if (!err) {
                     playlist.push(youtube_parser(text));
-
-                    tempidstore.push(meta.author.id);
-                  
-                    playlistfrom = tempidstore;
-
-                 //   console.log(playlistfrom);
+                    playlistfrom.push(meta.author.id);
                     meta.reply("your song was added!");
                     playNextSong();
-                    //temp array dead
                 }
             });
         });
 
     cmd.command('wishes status')
+		.showHelpOnEmpty(false)
         .action((meta) => {
             if (meta.channel.id != channelid) {
                 return;
@@ -64,7 +54,7 @@ module.exports = bot => {
                                 color: 65297,
                                 author: {
                                     name: "GLaDOS Music Service",
-                                    icon_url: "https://cdn2.iconfinder.com/data/icons/flat-ui-icons-24-px/24/volume-24-128.png"
+                                    icon_url: "http://i.imgur.com/PXA0OdX.png"
                                 },
                                 title: 'Wish status:',
                                 description: "music wishes enabled!",
@@ -77,7 +67,7 @@ module.exports = bot => {
                                 color: 65297,
                                 author: {
                                     name: "GLaDOS Music Service",
-                                    icon_url: "https://cdn2.iconfinder.com/data/icons/flat-ui-icons-24-px/24/volume-24-128.png"
+                                    icon_url: "http://i.imgur.com/PXA0OdX.png"
                                 },
                                 title: 'Wish status:',
                                 description: "music wishes disabled!",
@@ -100,7 +90,7 @@ function playNextSong() {
                 color: 65297,
                 author: {
                     name: "GLaDOS Music Service",
-                    icon_url: "https://cdn2.iconfinder.com/data/icons/flat-ui-icons-24-px/24/volume-24-128.png"
+                    icon_url: "http://i.imgur.com/PXA0OdX.png"
                 },
                 title: 'Playlist',
                 description: "The playlist is empty! Add a new Song: >music play YOUTUBEURL",
@@ -111,6 +101,7 @@ function playNextSong() {
     let stream = glados.main.ytdl("https://www.youtube.com/watch?v=" + playlist[0], {
         filter: 'audioonly'
     });
+	let fromid = playlistfrom[0];
     let dispatcher = glados.voiceC.connection.playStream(stream, streamOptions);
     glados.main.ytinfo(playlist[0], function(err, videoInfo) {
         let chan = glados.main.client.channels.get(channelid);
@@ -119,10 +110,10 @@ function playNextSong() {
                 color: 65297,
                 author: {
                     name: "GLaDOS Music Service",
-                    icon_url: "https://cdn2.iconfinder.com/data/icons/flat-ui-icons-24-px/24/volume-24-128.png"
+                    icon_url: "http://i.imgur.com/PXA0OdX.png"
                 },
                 title: 'Now playing:',
-                description: " **" + videoInfo.title + "** requested by <@" + playlistfrom[0] + ">",
+                description: " **" + videoInfo.title + "** requested by <@" + fromid + ">",
             }
         });
     });
