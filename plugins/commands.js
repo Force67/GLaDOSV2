@@ -9,31 +9,29 @@ module.exports = bot => {
 
     bot.command(glados.main.prefix + 'botinfo')
         .action((meta, arg) => {
-            meta.channel.sendMessage("",{embed :{
-            color : 4857424, //this are decimal color codes
-            author: {
-                name: meta.client.user.username,
-                icon_url: meta.client.user.avatarURL
-            },
-            title: 'Botinfo:',
-            url: glados.invitelink,
-            fields: [
-                {
-                     name: 'Creators',
-                     value: 'Developed by Force67 & MasterZero with <3'
-                },
-                {
-                     name: 'Stats',
-                     value: 'Uptime : ' + meta.client.uptime
-                },
-               {
-                     name: 'Invite link:',
-                     value: '[klick to invite](' + glados.invitelink + ')'
-                },
-            ],
-            
-        }});
-        
+            meta.channel.sendMessage("", {
+                embed: {
+                    color: 4857424, //this are decimal color codes
+                    author: {
+                        name: meta.client.user.username,
+                        icon_url: meta.client.user.avatarURL
+                    },
+                    title: 'Botinfo:',
+                    url: glados.invitelink,
+                    fields: [{
+                        name: 'Creators',
+                        value: 'Developed by Force67 & MasterZero with <3'
+                    }, {
+                        name: 'Stats',
+                        value: 'Uptime : ' + meta.client.uptime
+                    }, {
+                        name: 'Invite link:',
+                        value: '[klick to invite](' + glados.invitelink + ')'
+                    }, ],
+
+                }
+            });
+
         });
 
     bot.command(glados.main.prefix + 'hi')
@@ -80,7 +78,7 @@ module.exports = bot => {
             meta.delete();
             meta.channel.sendMessage(text);
         });
-    
+
     bot.command(glados.main.prefix + 'setgame ["gamename"]')
         .action((meta, text) => {
             glados.isAdmin(meta.author.id, function(t) {
@@ -156,16 +154,18 @@ msg.channel.sendMessage("", {embed: {
     //this requires discord.js indev
     bot.command(glados.main.prefix + 'help')
         .action(meta => {
-        meta.channel.sendMessage("",{embed :{
-            color : 3447003, //this are decimal color codes
-            author: {
-                name: meta.client.user.username,
-                icon_url: meta.client.user.avatarURL
-            },
-            title: 'All commands:',
-            url: glados.invitelink,
-            description: bot.help(),
-        }});
+            meta.channel.sendMessage("", {
+                embed: {
+                    color: 3447003, //this are decimal color codes
+                    author: {
+                        name: meta.client.user.username,
+                        icon_url: meta.client.user.avatarURL
+                    },
+                    title: 'All commands:',
+                    url: glados.invitelink,
+                    description: bot.help(),
+                }
+            });
         });
 
 };

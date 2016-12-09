@@ -11,6 +11,7 @@ const url = require('url');
 const cheerio = require('cheerio');
 const cleverbot = require('cleverbot.io');
 const ytdl = require('ytdl-core');
+const ytinfo = require('youtube-info');
 //////////////////////////////////////////////
 var prefix = '>',
     imgur = require('imgur-node-api'),
@@ -24,7 +25,8 @@ var prefix = '>',
     pastebin = "",
     webport = 8080,
     invitelink = "",
-    norights = "Insufficient client rights!";
+    norights = "Insufficient client rights!",
+    voiceC = null;
 
 //////////////////////////////////////////////
 ///XFPARSE 
@@ -55,6 +57,12 @@ GetElemenent("dtoken", function(eleme) {
 ////////////////////////////////////////////
 client.on('ready', () => {
     console.log('Welcome to GLaDOS 2.0');
+    //voice connect
+    //client.joinVoiceChannel('252077307710144512');
+    //console.log(client.channels);
+    var vc = client.channels.get('252077307710144512');
+    vc.join().catch("Can't connect to voice!");
+    exports.voiceC = vc;
     //init plugins
     fs.readdir('./plugins/', (err, files) => {
         files.forEach(file => {
@@ -128,5 +136,6 @@ exports.main = {
     client: client,
     norights: norights,
     ytdl : ytdl,
-    cleverbot: cleverbot
+    cleverbot: cleverbot,
+    ytinfo: ytinfo
 };
