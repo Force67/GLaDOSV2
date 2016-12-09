@@ -10,12 +10,18 @@ const streamOptions = {
 };
 
 var playlist = [];
+var tempidstore = [];
 var playlistfrom = [];
 var ready = true;
 var allowed = true;
 var channelid = '256524366928412672';
 
+
+
+
 module.exports = bot => {
+
+
 
     let cmd = bot
         .command(glados.main.prefix + 'music')
@@ -30,9 +36,15 @@ module.exports = bot => {
             glados.main.ytinfo(youtube_parser(text), function(err, videoInfo) {
                 if (!err) {
                     playlist.push(youtube_parser(text));
-                    playlistfrom.push(meta.author.id);
+
+                    tempidstore.push(meta.author.id);
+                  
+                    playlistfrom = tempidstore;
+
+                 //   console.log(playlistfrom);
                     meta.reply("your song was added!");
                     playNextSong();
+                    //temp array dead
                 }
             });
         });
