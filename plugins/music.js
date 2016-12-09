@@ -10,7 +10,6 @@ const streamOptions = {
 };
 
 var playlist = [];
-var tempidstore = [];
 var playlistfrom = [];
 var ready = true;
 var allowed = true;
@@ -83,7 +82,7 @@ function playNextSong() {
     if (ready === false)
         return;
 
-    if (playlist.length < 1) {
+    if (playlist.length == 0) {
         let chan = glados.main.client.channels.get(channelid);
         return chan.sendMessage("", {
             embed: {
@@ -121,7 +120,7 @@ function playNextSong() {
     playlistfrom.splice(0, 1);
     dispatcher.on('end', () => {
         ready = true;
-        playNextSong();
+        playNextSong(false);
     });
 }
 
