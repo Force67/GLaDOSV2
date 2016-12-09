@@ -1,8 +1,8 @@
 # GLaDOS V2
 
-My custom Discord bot solution, written with discord.js
+GLaDOS Version 2
 
-##Features
-* Fast.
-* Allways in development.
-* Way faster then v1 which was written in c#.
+##Installation
+
+* Run the package manager.
+* Download FFmpeg and add it to your system path variable.
