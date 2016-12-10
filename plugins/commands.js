@@ -167,5 +167,4 @@ msg.channel.sendMessage("", {embed: {
                 }
             });
         });
-
 };

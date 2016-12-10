@@ -9,7 +9,6 @@
     "body-parser": "^1.15.2",
     "bot-commander": "^1.1.1",
     "cheerio": "^0.22.0",
-    "cleverbot-node": "^0.2.4",
     "cleverbot.io": "^1.0.4",
     "cookie-parser": "^1.4.3",
     "cookies": "^0.6.2",
