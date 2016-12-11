@@ -31,13 +31,37 @@ module.exports = bot => {
               glados.main.ytinfo(youtube_parser(text), function(err, videoInfo) {
                     playlist.push(youtube_parser(text));
                     playlistfrom.push(meta.author.id);
-                    meta.reply("your song was added!");
+                    meta.reply("your song was added to the playlist!");
                     playNextSong();
               });
             } catch(ex) {
               meta.reply(ex.message);
             }
         });
+    var playlisttext;
+    cmd.command('playlist')
+    .showHelpOnEmpty(false)
+    .action((meta) => {
+      playlisttext = "";
+        playlist.forEach(function (item)
+        {
+            glados.main.ytinfo(item, function(err, videoInfo)
+            {
+              playlisttext = playlisttext + videoInfo.title + "\n";
+            });
+        });
+        meta.channel.sendMessage("", {
+            embed: {
+                color: 65297,
+                author: {
+                    name: "GLaDOS Music Service",
+                    icon_url: "http://i.imgur.com/TLQq3S4.png"
+                },
+                title: 'Playlist:',
+                description: playlisttext,
+            }
+        });
+    });
 
     cmd.command('wishes status')
 		.showHelpOnEmpty(false)
