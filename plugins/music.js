@@ -39,17 +39,23 @@ module.exports = bot => {
             }
         });
     var playlisttext;
+    var tempstack = [];
     cmd.command('playlist')
     .showHelpOnEmpty(false)
     .action((meta) => {
       playlisttext = "";
-        playlist.forEach(function (item)
+     meta.channel.sendMessage('DEBUG ' + playlist.length);
+        for (var i = -1; i < playlist.length ;i++)
         {
-            glados.main.ytinfo(item, function(err, videoInfo)
-            {
-              playlisttext = playlisttext + videoInfo.title + "\n";
-            });
-        });
+          /*
+          glados.main.ytinfo(playlist[i], function(err, videoInfo)
+          {
+            playlisttext = playlisttext + videoInfo.title + "\n";
+            meta.reply("lapse " + playlist[i]);
+          });*/
+        //  meta.reply('mov ' + playlist[i] + ' eax to stack');
+        playlisttext = playlisttext + "https://www.youtube.com/watch?v=" + playlist[i] + "\n";
+        }
         meta.channel.sendMessage("", {
             embed: {
                 color: 65297,
