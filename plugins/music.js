@@ -27,14 +27,16 @@ module.exports = bot => {
                 return;
             }
             meta.delete();
-            glados.main.ytinfo(youtube_parser(text), function(err, videoInfo) {
-                if (!err) {
+            try {
+              glados.main.ytinfo(youtube_parser(text), function(err, videoInfo) {
                     playlist.push(youtube_parser(text));
                     playlistfrom.push(meta.author.id);
                     meta.reply("your song was added!");
                     playNextSong();
-                }
-            });
+              });
+            } catch(ex) {
+              meta.reply(ex.message);
+            }
         });
 
     cmd.command('wishes status')

@@ -20,13 +20,13 @@ module.exports = bot => {
                     url: glados.invitelink,
                     fields: [{
                         name: 'Creators',
-                        value: 'Developed by Force67 & MasterZero with <3'
+                        value: 'Developed by <@194151547846787072> & <@232899182552285184> with :heart: '
                     }, {
                         name: 'Stats',
-                        value: 'Uptime : ' + meta.client.uptime
+                        value: 'Uptime: ' + glados.main.moment(new Date()).subtract(meta.client.uptime / 1000, 'seconds').format('HH:mm:ss')
                     }, {
                         name: 'Invite link:',
-                        value: '[klick to invite](' + glados.invitelink + ')'
+                        value: '[Click to invite](' + glados.invitelink + ')'
                     }, ],
 
                 }

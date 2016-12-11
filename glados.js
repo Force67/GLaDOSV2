@@ -12,6 +12,8 @@ const cheerio = require('cheerio');
 const cleverbot = require('cleverbot.io');
 const ytdl = require('ytdl-core');
 const ytinfo = require('youtube-info');
+const moment = require("moment")
+const momentformat = require("moment-duration-format")
 
 //////////////////////////////////////////////
 var prefix = '>',
@@ -150,5 +152,7 @@ exports.main = {
     norights: norights,
     ytdl: ytdl,
     cleverbot: cleverbot,
-    ytinfo: ytinfo
+    ytinfo: ytinfo,
+    moment: moment,
+    momentformat: momentformat
 };
