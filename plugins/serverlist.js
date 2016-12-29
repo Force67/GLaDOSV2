@@ -30,6 +30,7 @@ module.exports = bot => {
                                 name: meta.client.user.username,
                                 icon_url: meta.client.user.avatarURL
                             },
+                            thumbnail : {url: ('https://rage.mp/uploads/monthly_2016_10/basiclogohd_white.png.1644889db28e6665fc454589b47ae8a9.png') },
                             title: 'Ragemp Servers:',
                             url: 'https://rage.mp/',
                             description: Fields,
@@ -59,6 +60,7 @@ module.exports = bot => {
                             name: meta.client.user.username,
                             icon_url: meta.client.user.avatarURL
                         },
+                        thumbnail : {url: ('https://wiki.gtanet.work/images/thumb/8/88/gtan_presskit_logo_3.png/85px-gtan_presskit_logo_3.png') },
                         title: 'Gta-Network Servers:',
                         url: 'https://gtanet.work/',
                         description: Fields,
