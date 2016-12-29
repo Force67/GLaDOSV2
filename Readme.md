@@ -1,7 +1,7 @@
 # GLaDOS V2
 
 ![alt text][logo]
-[logo]: http://i.imgur.com/hV8BiC8.jpg "GLaDOS Discord Bot"
+[logo]: http://i.imgur.com/pHmZmeM.jpg "GLaDOS Discord Bot"
 
 ##Installation
 
