@@ -52,7 +52,7 @@ function Setupifneeded()
   if (!fs.existsSync(dir))
   {
     fs.mkdirSync(dir);
-    console.log('Put the example settings file in ' + dir + ' and enter your tokens. out!\n Then start the bot again!');
+    console.log('Put the example settings file in ' + dir + ' and enter your tokens.\n Then start the bot again!');
     var sleep = require('sleep');
     sleep.sleep(8);
     process.exit(1);
