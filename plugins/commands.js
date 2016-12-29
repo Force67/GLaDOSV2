@@ -39,11 +39,6 @@ module.exports = bot => {
             meta.reply("I am a simple GLaDOS test written in nodejs!");
         });
 
-    bot.command(glados.main.prefix + 'bemyfriend')
-        .action((meta, arg) => {
-            meta.reply("Send you a friend request!");
-            meta.client.user.addFriend();
-        });
 
     bot.command(glados.main.prefix + 'messageid')
         .action((meta, arg) => {
