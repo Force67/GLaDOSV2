@@ -12,8 +12,9 @@ const cheerio = require('cheerio');
 const cleverbot = require('cleverbot.io');
 const ytdl = require('ytdl-core');
 const ytinfo = require('youtube-info');
-const moment = require("moment")
-const momentformat = require("moment-duration-format")
+const moment = require("moment");
+const momentformat = require("moment-duration-format");
+const comics = require("xkcd-imgs");
 
 //////////////////////////////////////////////
 var prefix = '>',
@@ -150,6 +151,7 @@ exports.main = {
     cheerio: cheerio,
     client: client,
     norights: norights,
+    comics : comics,
     ytdl: ytdl,
     cleverbot: cleverbot,
     ytinfo: ytinfo,
