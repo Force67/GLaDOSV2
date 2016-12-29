@@ -1,9 +1,0 @@
-Client ID: 234417550392426496
-
-New client id :236241868810223616
-
-https://discordapp.com/oauth2/authorize?client_id=157730590492196864&scope=bot&permissions=0
-
-BOT ID: https://discordapp.com/oauth2/authorize?client_id=234417550392426496&scope=bot&permissions=0
-
-BOT ID NEW :  https://discordapp.com/oauth2/authorize?client_id=236241868810223616&scope=bot&permissions=0

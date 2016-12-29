@@ -1,3 +1,4 @@
 *.log
 *.tlog
-/nbproject/private/
+*.bork
+/data/settings/

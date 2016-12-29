@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////
 //
-//  GLaDOS scc module.
+//  GLaDOS scc module. Made by Force67 & MasterZero
 //
 //////////////////////////////////////////////////////////////////////////
 var glados = require('../glados.js');
@@ -15,7 +15,7 @@ module.exports = bot => {
         .action((meta, command, code) => {
             if (command == null || code == null)
                 return meta.reply("Usage: " + glados.main.prefix + "scc add \"NAME\" \"CODE\"");
-                
+
             glados.main.db.get("SELECT COUNT(*) AS co FROM scc WHERE command = ?1 AND serverid = ?2", {
                 1: command,
                 2: meta.guild.id

@@ -38,29 +38,19 @@ var prefix = '>',
 
 //////////////////////////////////////////////
 
-function GetElemenent(element, callback) {
-    fs.createReadStream(path2 + '/data/settings.xf')
-            .pipe(split())
-            .on('data', function (line) {
-                //each chunk now is a seperate line!
-                ///remove spaces.
-                if (line.includes(element)) {
-                    ///remove spaces.
-                    var process = line.replace(/ /g, "");
+//invitelink : https://discordapp.com/oauth2/authorize?client_id=236241868810223616&scope=bot&permissions=0
 
-                    //delete all brakets.
-                    var removebrakets = process.substring(1, process.length - 1);
-
-                    callback(removebrakets.substr(element.length + 1, removebrakets.length - 1));
-                    return;
-                }
-            });
+function ReadJson(callback)
+{
+fs.readFile(path2 + '/data/settings/settings.json', 'utf8', function (err, data) {
+    if (err) throw err;
+    callback(JSON.parse(data));
+    });
 }
 
-//////////////////////////////////////////////
-
-GetElemenent("dtoken", function (eleme) {
-    client.login(eleme);
+ReadJson( function (t)
+{
+  client.login(t.dtoken);
 });
 
 ////////////////////////////////////////////
@@ -82,34 +72,25 @@ client.on('ready', () => {
 
     console.log("Loading Settings...");
 
-    //now 3rd party stuff
-    GetElemenent("imgurtoken", function (eleme) {
-        imgur.setClientID(eleme);
-    });
-    GetElemenent("yttoken", function (eleme) {
-        youTube.setKey(eleme);
-    });
-    GetElemenent("pastebintoken", function (eleme) {
-        exports.pastebin = eleme;
-    });
-    GetElemenent("defaultgame", function (eleme) {
-        client.user.setGame(eleme);
-    });
-    //random startup image setting
-    GetElemenent("rndavartar", function (eleme) {
-        if (eleme == "true")
+    ReadJson( function (eleme)
+    {
+        imgur.setClientID(eleme.imgurtoken);
+        youTube.setKey(eleme.yttoken);
+        exports.pastebin =  eleme.pastebintoken;
+        client.user.setGame(eleme.defaultgame);
+        if (eleme.rndavatar == true)
         {
-            //2 images
-            var avartar = Math.random() * (3 - 1) + 1;
-            switch (Math.ceil(avartar - 1))
-            {
-                case 1:
-                    client.user.setAvatar('./data/strtup/avatar/glados_1.jpg');
-                    break;
-                case 2:
-                    client.user.setAvatar('./data/strtup/avatar/glados_2.jpg');
-                    break;
-            }
+          //2 images
+          var avartar = Math.random() * (3 - 1) + 1;
+          switch (Math.ceil(avartar - 1))
+          {
+              case 1:
+                  client.user.setAvatar('./data/strtup/avatar/glados_1.jpg');
+                  break;
+              case 2:
+                  client.user.setAvatar('./data/strtup/avatar/glados_2.jpg');
+                  break;
+          }
         }
     });
     //our bot invite link

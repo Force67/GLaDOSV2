@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////
 //
-//  GLaDOS pastebin module.
+//  GLaDOS pastebin module. Made by Force67 & MasterZero
 //
 //////////////////////////////////////////////////////////////////////////
 var glados = require('../glados.js');
@@ -72,5 +72,5 @@ module.exports = bot => {
                     }
                 })
         });
-        
+
 };
