@@ -19,6 +19,12 @@ const ytdl = require('ytdl-core');
 const ytinfo = require('youtube-info');
 const moment = require("moment");
 const momentformat = require("moment-duration-format");
+const readline = require('readline');
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
 
 //////////////////////////////////////////////
 var prefix = '>',
@@ -39,6 +45,21 @@ var prefix = '>',
 //////////////////////////////////////////////
 
 //invitelink : https://discordapp.com/oauth2/authorize?client_id=236241868810223616&scope=bot&permissions=0
+
+function Setupifneeded()
+{
+  var dir = path2 + '/data/settings/'
+  if (!fs.existsSync(dir))
+  {
+    fs.mkdirSync(dir);
+    console.log('Put the example settings file in ' + dir + ' and enter your tokens. out!\n Then start the bot again!');
+    var sleep = require('sleep');
+    sleep.sleep(8);
+    process.exit(1);
+  }
+}
+
+Setupifneeded();
 
 function ReadJson(callback)
 {

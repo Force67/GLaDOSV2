@@ -1,0 +1,9 @@
+{
+  "dtoken" : "yourdiscordtoken",
+  "prefix" : ">",
+  "yttoken" : "youryoutubetoken",
+  "pastebintoken" : "yourpastebintoken",
+  "imgurtoken" : "yourimgurtoken",
+  "defaultgame" : "www.dev-force.net",
+  "rndavatar" : true
+}
