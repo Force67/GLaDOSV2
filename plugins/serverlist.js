@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////
 //
-//  GLaDOS ragemp module. Made by Force67 & MasterZero
+//  GLaDOS serverlist module. Made by Force67 & MasterZero
 //
 //////////////////////////////////////////////////////////////////////////
 
@@ -18,6 +18,7 @@ module.exports = bot => {
                     var content = JSON.parse(html);
                     let Fields = "";
                     for (let i in content) {
+            //      for(let i=0;i<20;i++) {
                         var line = JSON.parse(JSON.stringify(content[i]));
                         Fields = Fields + line.name + "\n" + 'Players: ' + line.players + '/' + line.slots + "\n" + "\n";
                         //    Fields = '[{ name:' + "'" + line.name + "'," + 'value: ' + "'" + line.players + '/' + line.slots + "'},";
@@ -38,15 +39,16 @@ module.exports = bot => {
             });
 
         });
-    //broken TODO: fix (serverlimits xd)
     cmd.command('gtan')
     .action((meta) => {
         glados.main.request('https://master.gtanet.work/apiservers', function(error, response, html) {
             if (!error && response != 404) {
                 var content = JSON.parse(html);
+                var furtherparse = content.list;
                 let Fields = "";
-                for (let i in content) {
-                    var line = JSON.parse(JSON.stringify(content[i]));
+                //only 20...
+                for(let i=0;i<20;i++) {
+                    var line = JSON.parse(JSON.stringify(furtherparse[i]));
                     Fields = Fields + line.ServerName + "\n" + 'Players: ' + line.CurrentPlayers + '/' + line.MaxPlayers + "\n" + "\n";
                     //    Fields = '[{ name:' + "'" + line.name + "'," + 'value: ' + "'" + line.players + '/' + line.slots + "'},";
                 }
