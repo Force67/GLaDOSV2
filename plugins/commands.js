@@ -23,7 +23,7 @@ module.exports = bot => {
                         value: 'Developed by <@194151547846787072> & <@232899182552285184> with :heart: '
                     }, {
                         name: 'Stats',
-                        value: 'Uptime: ' + glados.main.moment(new Date()).subtract(meta.client.uptime / 1000, 'seconds').format('HH:mm:ss')
+                        value: 'Uptime: ' + glados.main.moment(new Date()).subtract(meta.client.uptime / 1000, 'seconds').format('HH:mm:ss') + '\nServing ' + glados.main.client.guilds.array().length + ' servers'
                     }, {
                         name: 'Invite link:',
                         value: '[Click to invite](' + glados.invitelink + ')'
@@ -87,6 +87,42 @@ module.exports = bot => {
     bot.command(glados.main.prefix + 'voice ["what?"]')
         .action((meta, text) => {
             meta.channel.sendTTSMessage(text);
+        });
+    bot.command(glados.main.prefix + 'sinfo')
+        .action(meta => {
+          meta.channel.sendMessage("", {embed: {
+            color: 3447003,
+            author: {
+              name: meta.client.user.username,
+              icon_url: meta.client.user.avatarURL
+            },
+            thumbnail : {url: (meta.channel.guild.splashURL) },
+            title: 'Serverinfo for ' + meta.channel.guild.name + '\n',
+            fields: [
+              {
+                name: '\nNumber of Roles:\n',
+                value: meta.channel.guild.roles.size
+              },
+              {
+                name: '\nCreation Time:\n',
+                value: meta.channel.guild.createdAt
+              },
+              {
+                name: '\nMemberCount:\n',
+                value: meta.channel.guild.memberCount
+              },
+              /*
+              {
+                name: '\nOwner:\n',
+                value: meta.channel.guild.owner
+              },*/
+            ],
+            timestamp: new Date(),
+            footer: {
+              icon_url: meta.client.user.avatarURL,
+              text: 'Updated: '
+            }
+          }});
         });
     bot.command(glados.main.prefix + 'status ["online|dnd|idle|invisible"]')
         .action((meta, text) => {
