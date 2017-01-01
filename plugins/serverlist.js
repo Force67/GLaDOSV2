@@ -20,7 +20,7 @@ module.exports = bot => {
                     var pcount = 0,scount = 0;
                     for (let i in content) {
                         var line = JSON.parse(JSON.stringify(content[i]));
-                        Fields = Fields + '__**' +  line.name + "**__\n" + 'Players: ' + line.players + '/' + line.slots + "\n" + "\n";
+                        Fields = Fields + '``' +  line.name + "``\n" + 'Players: ' + line.players + '/' + line.slots + "\n" + "\n";
                         pcount = pcount + line.players;
                         scount++;
                     }
