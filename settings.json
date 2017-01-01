@@ -4,6 +4,9 @@
   "yttoken" : "youryoutubetoken",
   "pastebintoken" : "yourpastebintoken",
   "imgurtoken" : "yourimgurtoken",
+  "admusr" : "youradmininterfacename",
+  "admpw" : "1234567",
+  "enablewebinterface" : true,
   "defaultgame" : "www.dev-force.net",
   "rndavatar" : true
 }

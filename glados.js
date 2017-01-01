@@ -140,8 +140,6 @@ exports.isAdmin = function (discordid, callback) {
     });
 }
 
-//////////////////////////////////////////////
-
 exports.main = {
     prefix: prefix,
     Discord: Discord,
@@ -155,6 +153,7 @@ exports.main = {
     url: url,
     webport: webport,
     cheerio: cheerio,
+    path2 : path2,
     client: client,
     norights: norights,
     ytdl: ytdl,

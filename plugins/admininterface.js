@@ -3,7 +3,19 @@
 //  GLaDOS admininterface module. Made by Force67 & MasterZero
 //
 //////////////////////////////////////////////////////////////////////////
+
+const fs = require('fs');
 var glados = require('../glados.js');
+
+//ik its ugly... i had countless bugs tho when trying to call exported function idk
+function _ReadJson(callback)
+{
+fs.readFile(glados.main.path2 + '/data/settings/settings.json', 'utf8', function (err, data) {
+    if (err) throw err;
+    callback(JSON.parse(data));
+    });
+}
+
 module.exports = bot => {
 
     var express = require('express');
@@ -13,9 +25,14 @@ module.exports = bot => {
     var bodyParser = require('body-parser');
     var basicAuth = require('basic-auth-connect');
     var app = express();
+    var username,userpassword;
+    _ReadJson( function(t)
+    {
+    if (t.enablewebinterface)
+    {
+       //protect
+    app.use(basicAuth(t.admusr, t.admpw));
 
-    //protect
-    app.use(basicAuth('admin', 'admin'));
     // view engine setup
     app.set('views', path.join("./web/", 'views'));
     app.set('view engine', 'jade');
@@ -67,5 +84,6 @@ module.exports = bot => {
     app.listen(glados.main.webport, function() {
         console.log('Started Admininterface on port ' + glados.main.webport);
     });
-
+  }
+  });
 };
