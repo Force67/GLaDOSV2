@@ -17,12 +17,14 @@ module.exports = bot => {
                 if (!error && response != 404) {
                     var content = JSON.parse(html);
                     let Fields = "";
+                    var pcount = 0,scount = 0;
                     for (let i in content) {
-            //      for(let i=0;i<20;i++) {
                         var line = JSON.parse(JSON.stringify(content[i]));
-                        Fields = Fields + line.name + "\n" + 'Players: ' + line.players + '/' + line.slots + "\n" + "\n";
-                        //    Fields = '[{ name:' + "'" + line.name + "'," + 'value: ' + "'" + line.players + '/' + line.slots + "'},";
+                        Fields = Fields + '__**' +  line.name + "**__\n" + 'Players: ' + line.players + '/' + line.slots + "\n" + "\n";
+                        pcount = pcount + line.players;
+                        scount++;
                     }
+                    var FinalFields = '**Total Players Online : ' + pcount + '**\n' + '**Total Servers Online: ' + scount + '**\n\n' + Fields;
                     meta.channel.sendMessage("", {
                         embed: {
                             color: 16731648,
@@ -33,7 +35,7 @@ module.exports = bot => {
                             thumbnail : {url: ('https://rage.mp/uploads/monthly_2016_10/basiclogohd_white.png.1644889db28e6665fc454589b47ae8a9.png') },
                             title: 'Ragemp Servers:',
                             url: 'https://rage.mp/',
-                            description: Fields,
+                            description: FinalFields,
                         }
                     });
                 }

@@ -36,7 +36,7 @@ module.exports = bot => {
 
     bot.command(glados.main.prefix + 'hi')
         .action((meta, arg) => {
-            meta.reply("I am a simple GLaDOS test written in nodejs!");
+            meta.channel.sendMessage("```lua\n" + "print('hello world!')```");
         });
 
 
@@ -88,10 +88,10 @@ module.exports = bot => {
         .action((meta, text) => {
             meta.channel.sendTTSMessage(text);
         });
-    bot.command(glados.main.prefix + 'status ["online|dnd|idle|offline"]')
+    bot.command(glados.main.prefix + 'status ["online|dnd|idle|invisible"]')
         .action((meta, text) => {
             let check = text;
-            if (check != 'online' && check != 'dnd' && check != 'idle' && check != 'offline') {
+            if (check != 'online' && check != 'dnd' && check != 'idle' && check != 'invisible') {
                 meta.reply('This status does not exist!');
                 return;
             } else {
