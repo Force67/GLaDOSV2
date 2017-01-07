@@ -17,7 +17,7 @@ module.exports = bot => {
         .action((meta, command, code) => {
             if (command == null || code == null)
                 return meta.reply("Usage: " + glados.main.prefix + "scc add \"NAME\" \"CODE\"");
-                let blacklist = ['process', 'glados', 'Buffer'];
+                let blacklist = ['process', 'glados', 'Buffer','console','while','for'];
                 for (i = 0; i < blacklist.length; i++) {
                       if (code.includes(blacklist[i])) {
                           meta.reply("This type of call is not allowed!");

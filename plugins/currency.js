@@ -6,33 +6,6 @@
 
 var glados = require('../glados.js');
 
-function getcurrency(text, meta, mp) {
-    var text1 = text.substr(0, 3);
-    var text2 = text.substr(4, 6);
-    let sprite = "";
-    glados.main.request('http://api.fixer.io/latest?base=' + text1, function(error, response, html) {
-        text1 == "EUR" ? sprite = 'http://i.imgur.com/F4yZlnm.png' : sprite = 'http://i.imgur.com/EDia5bF.png';
-        if (!error && response != 404) {
-            var content = JSON.parse(html);
-            var Fields = "For " + mp + ' '+ text1 + ' you will get : \n' + content.rates[text2] * mp + ' ' + text2;
-            meta.channel.sendMessage("", {
-                embed: {
-                    color: 3093032,
-                    author: {
-                        name: meta.client.user.username,
-                        icon_url: meta.client.user.avatarURL
-                    },
-                    thumbnail: {
-                        url: (sprite)
-                    },
-                    title: 'Your currency values',
-                    description: Fields,
-                }
-            });
-
-        }
-    });
-}
 
 module.exports = bot => {
     let cmd = bot
@@ -40,13 +13,50 @@ module.exports = bot => {
         .showHelpOnEmpty(false)
 
     cmd.command('compare')
-        .action((meta, text) => {
-            if (!text.includes('&')) {
-                meta.reply('GLaDOS Expects the following format for this command:\n (Example): EUR&USD');
-                return;
+        .action((meta, _currency1,_currency2) => {
+          if (_currency1.includes('#') || _currency2.includes('#')) {return;}  //submitted by BlackofWorld (uppercase issue)
+          var currency1 = _currency1.toUpperCase();
+          var currency2 = _currency2.toUpperCase();
+          let sprite = "";
+          var mp = 1; //for now
+          let whitelist = ['EUR','AUD','BGN','BRL','CAD','CHF','CNY','CZK','DKK','GBP','HKD','HRK','HUF','IDR','ILS','INR',
+          'JPY','KRW','MXN','MYR','NOK','NZD','PHP','PLN','RON','RUB','SEK','SGD','THB','TRY','USD','ZAR'];
+          //it would return false on first attempt... thats why we have the bool.
+          var attempts = false;
+          for (i = 0; i < whitelist.length;i++)
+          {
+            if (currency1 === whitelist[i])
+            {
+                attempts = true;
             }
+          }
+          if (!attempts)
+          {
+            meta.reply('This currency is not valid!');
+            return;
+          }
+          glados.main.request('http://api.fixer.io/latest?base=' + currency1, function(error, response, html) {
+              currency1 == "EUR" ? sprite = 'http://i.imgur.com/F4yZlnm.png' : sprite = 'http://i.imgur.com/EDia5bF.png';
+              if (!error && response != 404) {
+                  var content = JSON.parse(html);
+                  var Fields = "For " + mp + ' '+ currency1 + ' you will get : \n' + content.rates[currency2] * mp + ' ' + currency2;
+                  meta.channel.sendMessage("", {
+                      embed: {
+                          color: 3093032,
+                          author: {
+                              name: meta.client.user.username,
+                              icon_url: meta.client.user.avatarURL
+                          },
+                          thumbnail: {
+                              url: (sprite)
+                          },
+                          title: 'Your currency values',
+                          description: Fields,
+                      }
+                  });
 
-            getcurrency(text, meta, 1);
+              }
+          });
 
         });
 
