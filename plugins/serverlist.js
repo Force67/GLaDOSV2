@@ -20,8 +20,8 @@ module.exports = bot => {
                     var pcount = 0,scount = 0;
                     for (let i in content) {
                         var line = JSON.parse(JSON.stringify(content[i]));
-                        Fields = Fields + '``' +  line.name + "``\n" + 'Players: ' + line.players + '/' + line.slots + "\n" + "\n";
-                        pcount = pcount + line.players;
+                        Fields += '``' +  line.name + "``\n" + 'Players: ' + line.players + '/' + line.slots + "\n" + "\n";
+                        pcount += line.players;
                         scount++;
                     }
                     var FinalFields = '**Total Players Online : ' + pcount + '**\n' + '**Total Servers Online: ' + scount + '**\n\n' + Fields;
@@ -52,7 +52,7 @@ module.exports = bot => {
                 //only 20...
                 for(let i=0;i<20;i++) {
                     var line = JSON.parse(JSON.stringify(furtherparse[i]));
-                    Fields = Fields + line.ServerName + "\n" + 'Players: ' + line.CurrentPlayers + '/' + line.MaxPlayers + "\n" + "\n";
+                    Fields += line.ServerName + "\n" + 'Players: ' + line.CurrentPlayers + '/' + line.MaxPlayers + "\n" + "\n";
                     //    Fields = '[{ name:' + "'" + line.name + "'," + 'value: ' + "'" + line.players + '/' + line.slots + "'},";
                 }
                 meta.channel.sendMessage("", {
