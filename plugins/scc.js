@@ -17,6 +17,13 @@ module.exports = bot => {
         .action((meta, command, code) => {
             if (command == null || code == null)
                 return meta.reply("Usage: " + glados.main.prefix + "scc add \"NAME\" \"CODE\"");
+                let blacklist = ['process', 'glados', 'Buffer'];
+                for (i = 0; i < blacklist.length; i++) {
+                      if (code.includes(blacklist[i])) {
+                          meta.reply("This type of call is not allowed!");
+                            return;
+                    }
+            }
 
             glados.main.db.get("SELECT COUNT(*) AS co FROM scc WHERE command = ?1 AND serverid = ?2", {
                 1: command,
