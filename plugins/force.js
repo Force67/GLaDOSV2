@@ -13,8 +13,9 @@ module.exports = bot => {
 
     cmd.command('shutdown')
         .action((meta) => {
-            if (glados.isAdmin(id, function(t) {
+          meta.delete();
+            glados.isAdmin(meta.author.id, function(t) {
                     t ? process.exit(1) : meta.reply('You are not allowed to use this command!');
-                }));
+                });
         });
 };
