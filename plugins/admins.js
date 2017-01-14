@@ -34,7 +34,7 @@ module.exports = bot => {
         });
 
     cmd
-        .command('add ["discordid"]')
+        .command('addid ["discordid"]')
         .showHelpOnEmpty(false)
         .action((meta, id) => {
             glados.isAdmin(meta.author.id, function(t) {
@@ -42,7 +42,7 @@ module.exports = bot => {
                     return meta.reply(glados.main.norights);
                 } else {
                     if (id == null)
-                        return meta.reply("Usage: " + glados.main.prefix + "admin add \"discordid\"");
+                        return meta.reply("Usage: " + glados.main.prefix + "admin addid \"discordid\"");
 
                     glados.isAdmin(id, function(t) {
                         if (t) {
@@ -65,9 +65,44 @@ module.exports = bot => {
                 }
             });
         });
+	cmd
+        .command('addname ["username"]')
+        .showHelpOnEmpty(false)
+        .action((meta, text) => {
+            glados.isAdmin(meta.author.id, function(t) {
+                if (!t) {
+                    return meta.reply(glados.main.norights);
+                } else {
+                    if (text == null)
+                        return meta.reply("Usage: " + glados.main.prefix + "admin addname \"username\"");
+					var users = meta.channel.guild.members.filter((member) => member.user.username == text).array();
+					if(users.length == 1){
+						glados.isAdmin(users[0].user.id, function(t) {
+                        if (t) {
+                            let client = glados.main.client.users.get(users[0].user.id);
+                            return meta.reply(users[0].user.username + " is already an admin! :)");
+                        } else {
+                            try {
+                                let client = glados.main.client.users.get(users[0].user.id);
+                            } catch (ex) {
+                                return meta.reply("Invalid username!");
+                            }
+                            let client = glados.main.client.users.get(users[0].user.id);
 
+                            glados.main.db.run("INSERT INTO admins (discordid) VALUES(?1)", {
+                                1: users[0].user.id
+                            });
+                            meta.channel.sendMessage("@here " + users[0].user.username + " is now GLaDOS admin!");
+                        }
+                    });
+				  }
+				  else if(users.length > 1)
+					  return meta.reply("Multiple users found! No action was done!")
+                }
+            });
+        });
     cmd
-        .command('delete ["discordid"]')
+        .command('deleteid ["discordid"]')
         .showHelpOnEmpty(false)
         .action((meta, discordid) => {
             glados.isAdmin(meta.author.id, function(t) {
@@ -93,6 +128,38 @@ module.exports = bot => {
                         1: discordid
                     });
                     meta.channel.sendMessage("@here " + client.username + " is no more GLaDOS admin!");
+                }
+            });
+        });
+    cmd
+        .command('deletename ["username"]')
+        .showHelpOnEmpty(false)
+        .action((meta, text) => {
+            glados.isAdmin(meta.author.id, function(t) {
+                if (!t) {
+                    return meta.reply(glados.main.norights);
+                } else {
+                    if (text == null)
+                        return meta.reply("Usage: " + glados.main.prefix + "admin delete \"username\"")
+					var users = meta.channel.guild.members.filter((member) => member.user.username == text).array();
+					if(users.length == 1){
+                    try {
+                    } catch (ex) {
+                        return meta.reply("Invalid username!");
+                    }
+                    glados.isAdmin(users[0].user.id, function(t) {
+                        if (!t) {
+                            return meta.reply(users[0].user.username + " is not an admin! :)");
+                        }
+                    });
+
+                    glados.main.db.run("DELETE FROM admins WHERE discordid = ?1", {
+                        1: users[0].user.id
+                    });
+                    meta.channel.sendMessage("@here " + users[0].user.username + " is no more GLaDOS admin!");
+					}
+					else if(users.length > 1)
+						return meta.reply("Multiple users found! No action was done!")
                 }
             });
         });
