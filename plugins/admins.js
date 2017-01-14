@@ -3,7 +3,9 @@
 //  GLaDOS scc module. Made by Force67 & MasterZero
 //
 //////////////////////////////////////////////////////////////////////////
+
 var glados = require('../glados.js');
+
 module.exports = bot => {
     let cmd = bot
         .command(glados.main.prefix + 'admin')

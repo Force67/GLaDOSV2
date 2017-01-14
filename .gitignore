@@ -1,4 +1,6 @@
 *.log
 *.tlog
 *.bork
+glados.db
 /data/settings/
+node_modules/

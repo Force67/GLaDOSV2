@@ -68,13 +68,7 @@ module.exports = bot => {
           //add a new line every 10 entrys
           for (i = 0; i < whitelist.length ;i++)
           {
-            if (i > linebreaks)
-            {
-              adder = '\n';
-            }
-            else {
-              linebreaks += 10;
-            }
+            i > linebreaks ? adder = '\n' : linebreaks +=10;
             Fields += whitelist[i].toLowerCase() + ' | ' + adder;
           }
           meta.channel.sendMessage("", {
