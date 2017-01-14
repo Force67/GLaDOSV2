@@ -41,7 +41,25 @@ module.exports = bot => {
                 }
             });
         });
-
+	cmd
+		.command('delete ["command name"]')
+		.showHelpOnEmpty(false)
+		.action((meta,command) => {
+			if(command == null)
+				return meta.reply("Usage: " + glados.main.prefix + "scc delete \"NAME\"");
+			glados.main.db.get("SELECT COUNT(*) AS co FROM scc WHERE command = ?1 AND serverid = ?2", {
+                1: command,
+                2: meta.guild.id
+            }, function(err, row) {
+				if (!row.co)
+					return meta.reply("SCC command doesn't exist!")
+				glados.main.db.run('DELETE FROM scc WHERE serverid=?1 AND command=?2', {
+					1: meta.guild.id,
+					2: command
+				});
+				meta.reply('SCC command ' + command + ' has been removed from this server!')
+		});
+		});
     cmd
         .command('run ["command name"]')
         .showHelpOnEmpty(false)
