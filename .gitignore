@@ -3,4 +3,5 @@
 *.bork
 glados.db
 /data/settings/
-node_modules/
+node_modules/**/*
+!node_modules/bot-commander/
