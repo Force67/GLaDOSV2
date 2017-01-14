@@ -44,12 +44,24 @@ module.exports = bot => {
         .action((meta, arg) => {
             meta.reply("'s Id is: " + meta.id);
         });
-
-    bot.command(glados.main.prefix + 'myid')
-        .action((meta, arg) => {
-            meta.reply('s ID is ' + meta.author.id);
+		
+	bot.command(glados.main.prefix + 'setusername ["username"]')
+        .action((meta, text) => {
+            glados.isAdmin(meta.author.id, function(t) {
+                if (!t) {
+                    return meta.reply(glados.main.norights);
+                }
+				else if(text == null ||text == "")
+				{
+					return meta.reply("Can't set username to " + text);
+				}
+				else {
+                    meta.client.user.setUsername(text);
+					return meta.reply('Succesfully set my username to ' + text);
+                }
+            });
         });
-
+		
     bot.command(glados.main.prefix + 'spam ["string"] [count]')
         .action((meta, text, count) => {
             if (text === null || count === null)
@@ -178,7 +190,7 @@ msg.channel.sendMessage("", {embed: {
   timestamp: new Date(),
   footer: {
     icon_url: bot.user.avatarURL,
-    text: 'Â© Example'
+    text: '© Example'
   }
 }});
     */
