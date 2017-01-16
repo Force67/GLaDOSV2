@@ -44,8 +44,6 @@ var prefix = '>',
 
 //////////////////////////////////////////////
 
-//invitelink : https://discordapp.com/oauth2/authorize?client_id=236241868810223616&scope=bot&permissions=0
-
 function Setupifneeded()
 {
   var dir = path2 + '/data/settings/'

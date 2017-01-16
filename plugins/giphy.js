@@ -16,6 +16,7 @@ module.exports = bot => {
         .command('search ["searchterm"]')
         .showHelpOnEmpty(false)
         .action((meta, arg) => {
+            if (arg == null) { return;}
             giphyapi.random(arg, function(err, res) {
                 err ? meta.channel.sendMessage('A issue occured with giphy api! (' + err + ')') : meta.channel.sendMessage(res.data.url);
             });
