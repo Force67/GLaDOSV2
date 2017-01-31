@@ -20,6 +20,7 @@ const ytinfo = require('youtube-info');
 const moment = require("moment");
 const momentformat = require("moment-duration-format");
 const readline = require('readline');
+const humanizeDuration = require('humanize-duration')
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -153,6 +154,7 @@ exports.main = {
     cheerio: cheerio,
     path2 : path2,
     client: client,
+	  humanizeDuration: humanizeDuration,
     norights: norights,
     ytdl: ytdl,
     cleverbot: cleverbot,
