@@ -98,6 +98,7 @@ client.on('ready', () => {
         youTube.setKey(eleme.yttoken);
         exports.pastebin =  eleme.pastebintoken;
         client.user.setGame(eleme.defaultgame);
+        webport = eleme.webinterfaceport;
         if (eleme.rndavatar == true)
         {
           //2 images
@@ -154,7 +155,7 @@ exports.main = {
     cheerio: cheerio,
     path2 : path2,
     client: client,
-	  humanizeDuration: humanizeDuration,
+    humanizeDuration: humanizeDuration,
     norights: norights,
     ytdl: ytdl,
     cleverbot: cleverbot,

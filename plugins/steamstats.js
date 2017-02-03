@@ -1,21 +1,21 @@
 var glados = require('../glados.js');
 module.exports = bot => {
 
- bot.command(glados.main.prefix + 'steamstats')    
+    bot.command(glados.main.prefix + 'steamstats')
 
-  .action((meta) => {
+        .action((meta) => {
 
-  meta.channel.sendMessage(`**Checking Status of Steam..**`).then(m => {   
-glados.main.request('http://steamgaug.es/api/v2', function (error, response, body) {
-      if (!error && response.statusCode == 200) {
-        var info = JSON.parse(body)
-      } else {
-        m.edit(`API seems to be down, try again soon.`)
-        return;
-      }  
+            meta.channel.sendMessage(`**Checking Status of Steam..**`).then(m => {
+                glados.main.request('http://steamgaug.es/api/v2', function(error, response, body) {
+                    if (!error && response.statusCode == 200) {
+                        var info = JSON.parse(body)
+                    } else {
+                        m.edit(`API seems to be down, try again soon.`)
+                        return;
+                    }
 
-       var empty = "";
-      message = (`\`\`\`ini
+                    var empty = "";
+                    message = (`\`\`\`ini
 [Steam Status]
 Steam: ${info.ISteamClient.online} ${empty}
 Steam Community: ${info.SteamCommunity.online} (${info.SteamCommunity.time}ms)
@@ -33,10 +33,10 @@ Players Searching: ${info.ISteamGameCoordinator[730].stats.players_searching}, w
 API: ${info.IEconItems[440].online} (${info.IEconItems[440].time}ms)
 Game Coordinator: ${info.ISteamGameCoordinator[440].online} ${empty}
 \`\`\``)
-message = message.replace(/: 1 /g, ": Online ");
-message = message.replace(/: 2 /g, ": Offline ");
-      m.edit(message)
- })
-  })
-  })
+                    message = message.replace(/: 1 /g, ": Online ");
+                    message = message.replace(/: 2 /g, ": Offline ");
+                    m.edit(message)
+                })
+            })
+        })
 };
