@@ -5,8 +5,7 @@
 //////////////////////////////////////////////////////////////////////////
 var glados = require('../glados.js');
 module.exports = bot => {
-    bot.command('<@!236241868810223616> ["sentence"]')
-        .alias('<@236241868810223616>')
+    bot.command('<@'+glados.botID+'> ["sentence"]')
         .action((meta, arg) => {
             if (arg == null)
                 return;
