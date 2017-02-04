@@ -122,11 +122,6 @@ client.on('ready', () => {
 
 //////////////////////////////////////////////
 
-client.on('message', msg => {
-    bot.parse(msg.content, msg);
-});
-
-//////////////////////////////////////////////
 
 exports.isAdmin = function (discordid, callback) {
     db.get("SELECT COUNT(*) AS co FROM admins WHERE discordid = ?1", {
@@ -134,6 +129,17 @@ exports.isAdmin = function (discordid, callback) {
     }, function (err, row) {
         if (err) {
             console.log("ERROR isAdmin: " + err);
+            callback(false);
+        }
+        callback(row.co);
+    });
+}
+exports.isBanned = function (discordid, callback) {
+    db.get("SELECT COUNT(*) AS co FROM blockedusers WHERE discordid = ?1", {
+        1: discordid
+    }, function (err, row) {
+        if (err) {
+            console.log("ERROR isBanned: " + err);
             callback(false);
         }
         callback(row.co);
