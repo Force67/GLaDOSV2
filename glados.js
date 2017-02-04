@@ -78,7 +78,7 @@ ReadJson( function (t)
 client.on('ready', () => {
     console.log('Welcome to GLaDOS 2.0');
     //voice connect
-    var vc = client.channels.get('252077307710144512');
+    var vc = client.channels.get('259776446942150658');
     vc.join().catch("Can't connect to voice!");
     exports.voiceC = vc;
 
@@ -98,7 +98,7 @@ client.on('ready', () => {
         youTube.setKey(eleme.yttoken);
         exports.pastebin =  eleme.pastebintoken;
         client.user.setGame(eleme.defaultgame);
-        webport = eleme.webinterfaceport;
+		webport = eleme.webinterfaceport;
         if (eleme.rndavatar == true)
         {
           //2 images
@@ -122,6 +122,17 @@ client.on('ready', () => {
 
 //////////////////////////////////////////////
 
+client.on('message', msg => {
+	if(msg.content.startsWith(prefix))
+	{
+	exports.isBanned(msg.author.id,function (t)	{
+		t ? msg.reply('You are banned from using GLaDOS.') : bot.parse(msg.content, msg);
+		});
+	}
+	
+});
+
+//////////////////////////////////////////////
 
 exports.isAdmin = function (discordid, callback) {
     db.get("SELECT COUNT(*) AS co FROM admins WHERE discordid = ?1", {
@@ -145,7 +156,6 @@ exports.isBanned = function (discordid, callback) {
         callback(row.co);
     });
 }
-
 exports.main = {
     prefix: prefix,
     Discord: Discord,
