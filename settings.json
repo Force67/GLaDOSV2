@@ -6,7 +6,7 @@
   "imgurtoken" : "yourimgurtoken",
   "admusr" : "youradmininterfacename",
   "admpw" : "1234567",
-  "enablewebinterface" : true,
+  "enablewebinterface" : 0,
   "webinterfaceport" : 8080,
   "defaultgame" : "www.dev-force.net",
   "rndavatar" : true

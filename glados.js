@@ -40,6 +40,8 @@ var prefix = '>',
   pastebin = "",
   webport = 8080,
   invitelink = "",
+  admpw = "",
+  admusr = "",
   norights = "Insufficient client rights!",
   voiceC = null;
 
@@ -78,45 +80,56 @@ ReadJson( function (t)
 client.on('ready', () => {
     console.log('Welcome to GLaDOS 2.0');
     //voice connect
-    var vc = client.channels.get('259776446942150658');
-    vc.join().catch("Can't connect to voice!");
-    exports.voiceC = vc;
+  //  var vc = client.channels.get('259776446942150658');
+  //  vc.join().catch("Can't connect to voice!");
+  //  exports.voiceC = vc;
 
-    //init plugins
-    fs.readdir('./plugins/', (err, files) => {
-        files.forEach(file => {
-            console.log("Loading plugin: " + file);
-            bot.load('./plugins/' + file);
-        });
-    });
+  console.log("Loading Settings...");
 
-    console.log("Loading Settings...");
-
-    ReadJson( function (eleme)
-    {
-        imgur.setClientID(eleme.imgurtoken);
-        youTube.setKey(eleme.yttoken);
-        exports.pastebin =  eleme.pastebintoken;
-        client.user.setGame(eleme.defaultgame);
-		webport = eleme.webinterfaceport;
-        if (eleme.rndavatar == true)
+  ReadJson( function (eleme)
+  {
+      imgur.setClientID(eleme.imgurtoken);
+      youTube.setKey(eleme.yttoken);
+      exports.pastebin =  eleme.pastebintoken;
+      client.user.setGame(eleme.defaultgame);
+      webport = eleme.webinterfaceport;
+      admpw = eleme.admpw;
+      admusr = eleme.admusr;
+      if (eleme.rndavatar == true)
+      {
+        //2 images
+        var avartar = Math.random() * (3 - 1) + 1;
+        switch (Math.ceil(avartar - 1))
         {
-          //2 images
-          var avartar = Math.random() * (3 - 1) + 1;
-          switch (Math.ceil(avartar - 1))
-          {
-              case 1:
-                  client.user.setAvatar('./data/strtup/avatar/glados_1.jpg');
-                  break;
-              case 2:
-                  client.user.setAvatar('./data/strtup/avatar/glados_2.jpg');
-                  break;
-          }
+            case 1:
+                client.user.setAvatar('./data/strtup/avatar/glados_1.jpg');
+                break;
+            case 2:
+                client.user.setAvatar('./data/strtup/avatar/glados_2.jpg');
+                break;
         }
-    });
+      }
+
+      //init plugins
+      fs.readdir('./plugins/', (err, files) => {
+          files.forEach(file => {
+              if (file == "admininterface.js" && eleme.enablewebinterface === 0)
+              {
+                console.log("Webinterface is disabled!");
+              }
+              else {
+                console.log("Loading plugin: " + file);
+                bot.load('./plugins/' + file);
+              }
+          });
+      });
+      exports.webpw = admpw;
+      exports.webusr= admusr;
+
+      console.log("Finished loading Settings");
+  });
     //our bot invite link
     exports.invitelink = 'https://discordapp.com/oauth2/authorize?client_id=' + client.user.id + '&scope=bot&permissions=0';
-    console.log("Finished loading Settings");
     enabletranslation = true;
 });
 
@@ -129,11 +142,9 @@ client.on('message', msg => {
 		t ? msg.reply('You are banned from using GLaDOS.') : bot.parse(msg.content, msg);
 		});
 	}
-	
 });
 
 //////////////////////////////////////////////
-
 exports.isAdmin = function (discordid, callback) {
     db.get("SELECT COUNT(*) AS co FROM admins WHERE discordid = ?1", {
         1: discordid
