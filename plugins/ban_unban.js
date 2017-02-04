@@ -1,6 +1,6 @@
 // This module for GlaDos was made by BlackOfWorld
 var glados = require('../glados.js');
-function ban(userid, userid2) {
+function ban(userid) {
 	glados.main.db.run("INSERT INTO blockedusers(discordid) VALUES (?1)", { 1: userid
 	});
 };
@@ -28,7 +28,7 @@ bot.command(glados.main.prefix + 'ban ["name"]')
 				}
 				else {
 					ban(users[0].user.id,meta.author.id);
-					return meta.channel.sendMessage('<@' + users[0].user.id + '> You are now banned from using GLaDOS by <@' + meta.author.id + '>');
+					return meta.channel.sendMessage('Everybody! <@'+users[0].user.id+'> is now banned from using GLaDOS by <@' + meta.author.id + '>. Lets celebrate!');
 				}
 				});
 			} else if(users.length > 1){
@@ -57,7 +57,7 @@ bot.command(glados.main.prefix + 'unban ["name"]')
 				}
 				else {
 					unban(users[0].user.id);
-					return meta.channel.sendMessage('<@' + users[0].user.id + '> You are now unbanned from using GlaDos by <@' + meta.author.id + '>');
+					return meta.channel.sendMessage('Ahh! <@' + users[0].user.id + '> is now unbanned from using GlaDos by <@' + meta.author.id + '>. So sad that I need to start working for him... Again');
 				}
 				});
 			} else if(users.length > 1){
