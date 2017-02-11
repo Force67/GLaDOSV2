@@ -40,11 +40,8 @@ var prefix = '>',
   pastebin = "",
   webport = 8080,
   invitelink = "",
-  admpw = "",
-  admusr = "",
   norights = "Insufficient client rights!",
-  voiceC = null,
-  botID = null;
+  voiceC = null;
 
 //////////////////////////////////////////////
 
@@ -76,15 +73,16 @@ ReadJson( function (t)
   client.login(t.dtoken);
 });
 
-//////////////////////////////////////////// 
+////////////////////////////////////////////
+
 client.on('ready', () => {
     console.log('Welcome to GLaDOS 2.0');
     //voice connect
-   /* var vc = client.channels.get('259776446942150658');
+    var vc = client.channels.get('252077307710144512');
     vc.join().catch("Can't connect to voice!");
-    exports.voiceC = vc; */
+    exports.voiceC = vc;
 
-  console.log("Loading Settings...");
+    console.log("Loading Settings...");
 
   ReadJson( function (eleme)
   {
@@ -95,22 +93,21 @@ client.on('ready', () => {
       webport = eleme.webinterfaceport;
       admpw = eleme.admpw;
       admusr = eleme.admusr;
-      if (eleme.rndavatar == true)
-      {
-        //2 images
-        var avartar = Math.random() * (3 - 1) + 1;
-        switch (Math.ceil(avartar - 1))
+        if (eleme.rndavatar == true)
         {
-            case 1:
-                client.user.setAvatar('./data/strtup/avatar/glados_1.jpg');
-                break;
-            case 2:
-                client.user.setAvatar('./data/strtup/avatar/glados_2.jpg');
-                break;
+          //2 images
+          var avartar = Math.random() * (3 - 1) + 1;
+          switch (Math.ceil(avartar - 1))
+          {
+              case 1:
+                  client.user.setAvatar('./data/strtup/avatar/glados_1.jpg');
+                  break;
+              case 2:
+                  client.user.setAvatar('./data/strtup/avatar/glados_2.jpg');
+                  break;
+          }
         }
-      }
-
-      //init plugins
+	  //init plugins
       fs.readdir('./plugins/', (err, files) => {
           files.forEach(file => {
               if (file == "admininterface.js" && eleme.enablewebinterface === 0)
@@ -123,27 +120,23 @@ client.on('ready', () => {
               }
           });
       });
-      exports.webpw = admpw;
-      exports.webusr= admusr;
-      console.log("Finished loading Settings");
-  });
+    });
     //our bot invite link
     exports.invitelink = 'https://discordapp.com/oauth2/authorize?client_id=' + client.user.id + '&scope=bot&permissions=0';
+    console.log("Finished loading Settings");
     enabletranslation = true;
 	botID = client.user.id;
 	module.exports.botID = botID;
 });
+
 //////////////////////////////////////////////
+
 client.on('message', msg => {
-	if(msg.content.startsWith(prefix) || msg.content.startsWith('<@' + client.user.id + '>'))
-	{
-	exports.isBanned(msg.author.id,function (t)	{
-		t ? msg.reply('You are banned from using GLaDOS.') : bot.parse(msg.content, msg);
-		});
-	}
+    bot.parse(msg.content, msg);
 });
 
 //////////////////////////////////////////////
+
 exports.isAdmin = function (discordid, callback) {
     db.get("SELECT COUNT(*) AS co FROM admins WHERE discordid = ?1", {
         1: discordid
@@ -155,17 +148,7 @@ exports.isAdmin = function (discordid, callback) {
         callback(row.co);
     });
 }
-exports.isBanned = function (discordid, callback) {
-    db.get("SELECT COUNT(*) AS co FROM blockedusers WHERE discordid = ?1", {
-        1: discordid
-    }, function (err, row) {
-        if (err) {
-            console.log("ERROR isBanned: " + err);
-            callback(false);
-        }
-        callback(row.co);
-    });
-}
+
 exports.main = {
     prefix: prefix,
     Discord: Discord,
