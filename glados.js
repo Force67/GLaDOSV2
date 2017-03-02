@@ -40,11 +40,11 @@ var prefix = '>',
   pastebin = "",
   webport = 8080,
   invitelink = "",
+  hackerearth = "",
   admpw = "",
   admusr = "",
   norights = "Insufficient client rights!",
-  voiceC = null,
-  botID = null;
+  voiceC = null;
 
 //////////////////////////////////////////////
 
@@ -76,13 +76,14 @@ ReadJson( function (t)
   client.login(t.dtoken);
 });
 
-//////////////////////////////////////////// 
+////////////////////////////////////////////
+
 client.on('ready', () => {
     console.log('Welcome to GLaDOS 2.0');
     //voice connect
-   /* var vc = client.channels.get('259776446942150658');
-    vc.join().catch("Can't connect to voice!");
-    exports.voiceC = vc; */
+  //  var vc = client.channels.get('259776446942150658');
+  //  vc.join().catch("Can't connect to voice!");
+  //  exports.voiceC = vc;
 
   console.log("Loading Settings...");
 
@@ -94,6 +95,7 @@ client.on('ready', () => {
       client.user.setGame(eleme.defaultgame);
       webport = eleme.webinterfaceport;
       admpw = eleme.admpw;
+      hackerearth = eleme.hackerearth;
       admusr = eleme.admusr;
       if (eleme.rndavatar == true)
       {
@@ -125,17 +127,19 @@ client.on('ready', () => {
       });
       exports.webpw = admpw;
       exports.webusr= admusr;
+      exports.hkearthsecret = hackerearth;
+
       console.log("Finished loading Settings");
   });
     //our bot invite link
     exports.invitelink = 'https://discordapp.com/oauth2/authorize?client_id=' + client.user.id + '&scope=bot&permissions=0';
     enabletranslation = true;
-	botID = client.user.id;
-	module.exports.botID = botID;
 });
+
 //////////////////////////////////////////////
+
 client.on('message', msg => {
-	if(msg.content.startsWith(prefix) || msg.content.startsWith('<@' + client.user.id + '>'))
+	if(msg.content.startsWith(prefix))
 	{
 	exports.isBanned(msg.author.id,function (t)	{
 		t ? msg.reply('You are banned from using GLaDOS.') : bot.parse(msg.content, msg);

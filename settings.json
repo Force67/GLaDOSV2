@@ -6,6 +6,7 @@
   "imgurtoken" : "yourimgurtoken",
   "admusr" : "youradmininterfacename",
   "admpw" : "1234567",
+  "hackerearth" : "",
   "enablewebinterface" : 0,
   "webinterfaceport" : 8080,
   "defaultgame" : "www.dev-force.net",
