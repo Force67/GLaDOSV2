@@ -79,15 +79,12 @@ ReadJson( function (t)
 ////////////////////////////////////////////
 
 client.on('ready', () => {
-    console.log('Welcome to GLaDOS 2.2');
+  console.log('Welcome to GLaDOS 2.2');
     //voice connect
   //  var vc = client.channels.get('259776446942150658');
   //  vc.join().catch("Can't connect to voice!");
   //  exports.voiceC = vc;
-
-
-
-    console.log("Loading Settings...");
+  console.log("Loading Settings...");
 
   ReadJson( function (eleme)
   {
@@ -99,7 +96,7 @@ client.on('ready', () => {
       admpw = eleme.admpw;
       hackerearth = eleme.hackerearth;
       admusr = eleme.admusr;
-        if (eleme.rndavatar == true)
+      if (eleme.rndavatar == true)
         {
           //2 images
           var avartar = Math.random() * (3 - 1) + 1;
@@ -131,7 +128,7 @@ client.on('ready', () => {
       exports.hkearthsecret = hackerearth;
 
       console.log("Finished loading Settings");
-  });
+
     });
     //our bot invite link
     exports.invitelink = 'https://discordapp.com/oauth2/authorize?client_id=' + client.user.id + '&scope=bot&permissions=0';
@@ -140,12 +137,24 @@ client.on('ready', () => {
 
 //////////////////////////////////////////////
 
+exports.isBanned = function (discordid, callback) {
+     db.get("SELECT COUNT(*) AS co FROM blockedusers WHERE discordid = ?1", {
+         1: discordid
+     }, function (err, row) {
+         if (err) {
+             console.log("ERROR isBanned: " + err);
+             callback(false);
+         }
+         callback(row.co);
+     });
+ }
+
 client.on('message', msg => {
 	if(msg.content.startsWith(prefix))
 	{
 	exports.isBanned(msg.author.id,function (t)	{
-		t ? msg.reply('You are banned from using GLaDOS.') : bot.parse(msg.content, msg);
-		});
+	   t ? msg.reply('You are banned from using GLaDOS.') : bot.parse(msg.content, msg);
+	});
 	}
 });
 
@@ -161,7 +170,7 @@ exports.isAdmin = function (discordid, callback) {
         }
         callback(row.co);
     });
-}
+};
 
 exports.main = {
     prefix: prefix,
