@@ -33,13 +33,25 @@ module.exports = bot => {
             });
 
         });
-
+	bot.command(glados.main.prefix + 'performance')
+	   .action((meta) => {
+		   //This idea was from another discord server. I've got this inspiration from them.
+		  var msg = 'Testing performance!';
+		  meta.channel.send(msg).then((msg2) => {
+			    var performance = Math.floor(msg2.createdTimestamp - meta.createdTimestamp);
+				msg2.edit("Speed of <@"+glados.botID+"> is "+performance+"ms.");
+				return msg2;
+	   }).catch(err => console.log(err.stack));
+	   });
+	bot.command(glados.main.prefix + 'ping')
+	   .action((meta) => {
+		   var ping = Math.floor(glados.main.client.ping).toString();
+		   meta.channel.send('Pong! Around '+ping+'ms.')
+	   });
     bot.command(glados.main.prefix + 'hi')
         .action((meta, arg) => {
             meta.channel.sendMessage("```lua\n" + "print('hello world!')```");
         });
-
-
     bot.command(glados.main.prefix + 'messageid')
         .action((meta, arg) => {
             meta.reply("'s Id is: " + meta.id);
