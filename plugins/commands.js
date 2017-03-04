@@ -43,11 +43,11 @@ module.exports = bot => {
 				return msg2;
 	   }).catch(err => console.log(err.stack));
 	   });
-	bot.command(glados.main.prefix + 'ping')
-	   .action((meta) => {
-		   var ping = Math.floor(glados.main.client.ping).toString();
-		   meta.channel.send('Pong! Around '+ping+'ms.')
-	   });
+     bot.command(glados.main.prefix + 'ping')
+          .action((meta) => {
+            //  var ping = Math.floor(glados.main.client.ping).toString();
+              meta.channel.sendMessage('Pong! -> ' + glados.main.client.ping + ' ms.')
+          });
     bot.command(glados.main.prefix + 'hi')
         .action((meta, arg) => {
             meta.channel.sendMessage("```lua\n" + "print('hello world!')```");

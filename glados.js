@@ -99,7 +99,7 @@ client.on('ready', () => {
       if (eleme.rndavatar == true)
         {
           //2 images
-          var avartar = Math.random() * (3 - 1) + 1;
+          var avartar = Math.random() * (4 - 1) + 1;
           switch (Math.ceil(avartar - 1))
           {
               case 1:
@@ -107,6 +107,9 @@ client.on('ready', () => {
                   break;
               case 2:
                   client.user.setAvatar('./data/strtup/avatar/glados_2.jpg');
+                  break;
+              case 3:
+                  client.user.setAvatar('./data/strtup/avatar/glados_3.jpg');
                   break;
           }
         }
@@ -150,12 +153,13 @@ exports.isBanned = function (discordid, callback) {
  }
 
 client.on('message', msg => {
-	if(msg.content.startsWith(prefix))
+	/*if(msg.content.startsWith(prefix))
 	{
 	exports.isBanned(msg.author.id,function (t)	{
 	   t ? msg.reply('You are banned from using GLaDOS.') : bot.parse(msg.content, msg);
 	});
-	}
+}*/
+    bot.parse(msg.content,msg);
 });
 
 //////////////////////////////////////////////
