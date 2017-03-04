@@ -56,7 +56,7 @@ module.exports = bot => {
         .action((meta, arg) => {
             meta.reply("'s Id is: " + meta.id);
         });
-		
+
 	bot.command(glados.main.prefix + 'setusername ["username"]')
         .action((meta, text) => {
             glados.isAdmin(meta.author.id, function(t) {
@@ -73,11 +73,15 @@ module.exports = bot => {
                 }
             });
         });
-		
+
     bot.command(glados.main.prefix + 'spam ["string"] [count]')
         .action((meta, text, count) => {
             if (text === null || count === null)
                 return;
+
+            glados.isAdmin(meta.author.id, function(t) {
+                if (!t) { return; }
+            });
 
             if (text.charAt(0) === ">") {
                 return meta.reply("You can't spam commands!");
@@ -202,7 +206,7 @@ msg.channel.sendMessage("", {embed: {
   timestamp: new Date(),
   footer: {
     icon_url: bot.user.avatarURL,
-    text: '© Example'
+    text: 'ï¿½ Example'
   }
 }});
     */

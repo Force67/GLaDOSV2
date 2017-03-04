@@ -1,5 +1,5 @@
 {
-  "name": "GLaDOSV2",
+  "name": "glados",
   "version": "1.0.0",
   "description": "![alt text][logo]\r [logo]: http://i.imgur.com/pHmZmeM.jpg \"GLaDOS Discord Bot\"",
   "main": "glados.js",
