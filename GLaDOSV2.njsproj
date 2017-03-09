@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{808ba1fd-1d4a-416c-9af1-fd5a64c51281}</ProjectGuid>
+    <ProjectHome />
+    <ProjectView>ShowAllFiles</ProjectView>
+    <StartupFile>glados.js</StartupFile>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <ItemGroup>
+    <Content Include="package.json" />
+    <Content Include="settings.json" />
+    <Content Include="Readme.md" />
+    <Compile Include="glados.js" />
+    <Compile Include="plugins\80stext.js" />
+    <Compile Include="plugins\9gag.js" />
+    <Compile Include="plugins\admininterface.js" />
+    <Compile Include="plugins\admins.js" />
+    <Compile Include="plugins\cleverbot.js" />
+    <Compile Include="plugins\comics.js" />
+    <Compile Include="plugins\commands.js" />
+    <Compile Include="plugins\currency.js" />
+    <Compile Include="plugins\download.js" />
+    <Compile Include="plugins\force.js" />
+    <Compile Include="plugins\giphy.js" />
+    <Compile Include="plugins\imgur.js" />
+    <Compile Include="plugins\itunes.js" />
+    <Compile Include="plugins\music.js" />
+    <Compile Include="plugins\onlinecompiler.js" />
+    <Compile Include="plugins\pastebin.js" />
+    <Compile Include="plugins\randompics.js" />
+    <Compile Include="plugins\scc.js" />
+    <Compile Include="plugins\serverlist.js" />
+    <Compile Include="plugins\songtext.js" />
+    <Compile Include="plugins\steamstats.js" />
+    <Compile Include="plugins\userid.js" />
+    <Compile Include="plugins\youtube.js" />
+    <Content Include="data\settings\settings.json" />
+    <Content Include="data\strtup\avatar\glados_1.jpg" />
+    <Content Include="data\strtup\avatar\glados_2.jpg" />
+    <Content Include="data\strtup\avatar\glados_3.jpg" />
+    <Content Include="web\views\error.jade" />
+    <Content Include="web\views\index.jade" />
+    <Content Include="web\views\layout.jade" />
+    <Content Include="web\views\scc.jade" />
+    <Content Include="web\public\dist\css\sb-admin-2.css" />
+    <Content Include="web\public\dist\css\sb-admin-2.min.css" />
+    <Compile Include="web\public\dist\js\sb-admin-2.js" />
+    <Compile Include="web\public\dist\js\sb-admin-2.min.js" />
+    <Content Include="web\public\vendor\bootstrap-social\bootstrap-social.css" />
+    <Content Include="web\public\vendor\datatables-plugins\index.html" />
+    <Content Include="web\public\vendor\datatables-plugins\dataTables.bootstrap.css" />
+    <Compile Include="web\public\vendor\datatables-plugins\dataTables.bootstrap.js" />
+    <Compile Include="web\public\vendor\datatables-plugins\dataTables.bootstrap.min.js" />
+    <Content Include="web\public\vendor\datatables-responsive\dataTables.responsive.css" />
+    <Compile Include="web\public\vendor\datatables-responsive\dataTables.responsive.js" />
+    <Compile Include="web\public\vendor\flot\excanvas.js" />
+    <Compile Include="web\public\vendor\flot\excanvas.min.js" />
+    <Compile Include="web\public\vendor\flot\jquery.colorhelpers.js" />
+    <Compile Include="web\public\vendor\flot\jquery.flot.canvas.js" />
+    <Compile Include="web\public\vendor\flot\jquery.flot.categories.js" />
+    <Compile Include="web\public\vendor\flot\jquery.flot.crosshair.js" />
+    <Compile Include="web\public\vendor\flot\jquery.flot.errorbars.js" />
+    <Compile Include="web\public\vendor\flot\jquery.flot.fillbetween.js" />
+    <Compile Include="web\public\vendor\flot\jquery.flot.image.js" />
+    <Compile Include="web\public\vendor\flot\jquery.flot.js" />
+    <Compile Include="web\public\vendor\flot\jquery.flot.navigate.js" />
+    <Compile Include="web\public\vendor\flot\jquery.flot.pie.js" />
+    <Compile Include="web\public\vendor\flot\jquery.flot.resize.js" />
+    <Compile Include="web\public\vendor\flot\jquery.flot.selection.js" />
+    <Compile Include="web\public\vendor\flot\jquery.flot.stack.js" />
+    <Compile Include="web\public\vendor\flot\jquery.flot.symbol.js" />
+    <Compile Include="web\public\vendor\flot\jquery.flot.threshold.js" />
+    <Compile Include="web\public\vendor\flot\jquery.flot.time.js" />
+    <Compile Include="web\public\vendor\flot\jquery.js" />
+    <Compile Include="web\public\vendor\flot-tooltip\jquery.flot.tooltip.js" />
+    <Compile Include="web\public\vendor\flot-tooltip\jquery.flot.tooltip.min.js" />
+    <Compile Include="web\public\vendor\flot-tooltip\jquery.flot.tooltip.source.js" />
+    <Content Include="web\public\vendor\font-awesome\HELP-US-OUT.txt" />
+    <Compile Include="web\public\vendor\jquery\jquery.js" />
+    <Compile Include="web\public\vendor\jquery\jquery.min.js" />
+    <Content Include="web\public\vendor\metisMenu\metisMenu.css" />
+    <Content Include="web\public\vendor\metisMenu\metisMenu.min.css" />
+    <Compile Include="web\public\vendor\metisMenu\metisMenu.js" />
+    <Compile Include="web\public\vendor\metisMenu\metisMenu.min.js" />
+    <Content Include="web\public\vendor\morrisjs\morris.css" />
+    <Compile Include="web\public\vendor\morrisjs\morris.js" />
+    <Compile Include="web\public\vendor\morrisjs\morris.min.js" />
+    <Compile Include="web\public\vendor\raphael\raphael.js" />
+    <Compile Include="web\public\vendor\raphael\raphael.min.js" />
+    <Content Include="web\public\vendor\bootstrap\css\bootstrap.css" />
+    <Content Include="web\public\vendor\bootstrap\css\bootstrap.min.css" />
+    <Content Include="web\public\vendor\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Compile Include="web\public\vendor\bootstrap\js\bootstrap.js" />
+    <Compile Include="web\public\vendor\bootstrap\js\bootstrap.min.js" />
+    <Content Include="web\public\vendor\datatables\css\dataTables.bootstrap.css" />
+    <Content Include="web\public\vendor\datatables\css\dataTables.bootstrap.min.css" />
+    <Content Include="web\public\vendor\datatables\css\dataTables.bootstrap4.css" />
+    <Content Include="web\public\vendor\datatables\css\dataTables.bootstrap4.min.css" />
+    <Content Include="web\public\vendor\datatables\css\dataTables.foundation.css" />
+    <Content Include="web\public\vendor\datatables\css\dataTables.foundation.min.css" />
+    <Content Include="web\public\vendor\datatables\css\dataTables.jqueryui.css" />
+    <Content Include="web\public\vendor\datatables\css\dataTables.jqueryui.min.css" />
+    <Content Include="web\public\vendor\datatables\css\dataTables.material.css" />
+    <Content Include="web\public\vendor\datatables\css\dataTables.material.min.css" />
+    <Content Include="web\public\vendor\datatables\css\dataTables.semanticui.css" />
+    <Content Include="web\public\vendor\datatables\css\dataTables.semanticui.min.css" />
+    <Content Include="web\public\vendor\datatables\css\dataTables.uikit.css" />
+    <Content Include="web\public\vendor\datatables\css\dataTables.uikit.min.css" />
+    <Content Include="web\public\vendor\datatables\css\jquery.dataTables.css" />
+    <Content Include="web\public\vendor\datatables\css\jquery.dataTables.min.css" />
+    <Content Include="web\public\vendor\datatables\css\jquery.dataTables_themeroller.css" />
+    <Content Include="web\public\vendor\datatables\images\sort_asc.png" />
+    <Content Include="web\public\vendor\datatables\images\sort_asc_disabled.png" />
+    <Content Include="web\public\vendor\datatables\images\sort_both.png" />
+    <Content Include="web\public\vendor\datatables\images\sort_desc.png" />
+    <Content Include="web\public\vendor\datatables\images\sort_desc_disabled.png" />
+    <Content Include="web\public\vendor\datatables\images\favicon.ico" />
+    <Compile Include="web\public\vendor\datatables\js\dataTables.bootstrap.js" />
+    <Compile Include="web\public\vendor\datatables\js\dataTables.bootstrap.min.js" />
+    <Compile Include="web\public\vendor\datatables\js\dataTables.bootstrap4.js" />
+    <Compile Include="web\public\vendor\datatables\js\dataTables.bootstrap4.min.js" />
+    <Compile Include="web\public\vendor\datatables\js\dataTables.foundation.js" />
+    <Compile Include="web\public\vendor\datatables\js\dataTables.foundation.min.js" />
+    <Compile Include="web\public\vendor\datatables\js\dataTables.jqueryui.js" />
+    <Compile Include="web\public\vendor\datatables\js\dataTables.jqueryui.min.js" />
+    <Compile Include="web\public\vendor\datatables\js\dataTables.material.js" />
+    <Compile Include="web\public\vendor\datatables\js\dataTables.material.min.js" />
+    <Compile Include="web\public\vendor\datatables\js\dataTables.semanticui.js" />
+    <Compile Include="web\public\vendor\datatables\js\dataTables.semanticui.min.js" />
+    <Compile Include="web\public\vendor\datatables\js\dataTables.uikit.js" />
+    <Compile Include="web\public\vendor\datatables\js\dataTables.uikit.min.js" />
+    <Compile Include="web\public\vendor\datatables\js\jquery.dataTables.js" />
+    <Compile Include="web\public\vendor\datatables\js\jquery.dataTables.min.js" />
+    <Compile Include="web\public\vendor\datatables\js\jquery.js" />
+    <Content Include="web\public\vendor\font-awesome\css\font-awesome.css" />
+    <Content Include="web\public\vendor\font-awesome\css\font-awesome.min.css" />
+    <Content Include="web\public\vendor\font-awesome\fonts\fontawesome-webfont.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="data" />
+    <Folder Include="data\settings" />
+    <Folder Include="data\strtup" />
+    <Folder Include="data\strtup\avatar" />
+    <Folder Include="plugins" />
+    <Folder Include="web" />
+    <Folder Include="web\public" />
+    <Folder Include="web\public\dist" />
+    <Folder Include="web\public\dist\css" />
+    <Folder Include="web\public\dist\js" />
+    <Folder Include="web\public\less" />
+    <Folder Include="web\public\vendor" />
+    <Folder Include="web\public\vendor\bootstrap" />
+    <Folder Include="web\public\vendor\bootstrap\css" />
+    <Folder Include="web\public\vendor\bootstrap\fonts" />
+    <Folder Include="web\public\vendor\bootstrap\js" />
+    <Folder Include="web\public\vendor\bootstrap-social" />
+    <Folder Include="web\public\vendor\datatables" />
+    <Folder Include="web\public\vendor\datatables\css" />
+    <Folder Include="web\public\vendor\datatables\images" />
+    <Folder Include="web\public\vendor\datatables\js" />
+    <Folder Include="web\public\vendor\datatables-plugins" />
+    <Folder Include="web\public\vendor\datatables-responsive" />
+    <Folder Include="web\public\vendor\flot" />
+    <Folder Include="web\public\vendor\flot-tooltip" />
+    <Folder Include="web\public\vendor\font-awesome" />
+    <Folder Include="web\public\vendor\font-awesome\css" />
+    <Folder Include="web\public\vendor\font-awesome\fonts" />
+    <Folder Include="web\public\vendor\font-awesome\less" />
+    <Folder Include="web\public\vendor\font-awesome\scss" />
+    <Folder Include="web\public\vendor\jquery" />
+    <Folder Include="web\public\vendor\metisMenu" />
+    <Folder Include="web\public\vendor\morrisjs" />
+    <Folder Include="web\public\vendor\raphael" />
+    <Folder Include="web\views" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <!--Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them.-->
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
