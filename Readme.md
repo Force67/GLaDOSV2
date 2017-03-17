@@ -1,11 +1,11 @@
 # GLaDOS V2
 
-![alt text][logo]: https://www.dev-force.net/images/Glados%20Banner.jpg "GLaDOS Discord Bot"
+<a href="https://discord.gg/JWBf8Qv"><img src="https://www.dev-force.net/images/Glados%20Banner.jpg" align="left" height="270" width="500" ></a>
 
-#Invite
+## Invite
 Invite GLaDOS to your server with a click [here](https://discordapp.com/oauth2/authorize?client_id=236241868810223616&scope=bot&permissions=0 "Invite-Link") 
 
-##Installation
+## Installation
 
 * Run the package manager.
 * Download FFmpeg and add it to your system path variable.
@@ -16,4 +16,4 @@ Invite GLaDOS to your server with a click [here](https://discordapp.com/oauth2/a
 
 Our development server on discord can be found [here](https://discord.gg/JWBf8Qv "Dev-Force")
 
-~Force67 & MasterZero
+~Force67 & Contributors.
