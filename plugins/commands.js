@@ -98,8 +98,14 @@ module.exports = bot => {
 
     bot.command(glados.main.prefix + 'say ["what?"]')
         .action((meta, text) => {
+			      if (text == null)
+            {
+              meta.channel.sendMessage('You want me to tell ... nothing ?');
+            }
+            else {
             meta.delete();
             meta.channel.sendMessage(text);
+          }
         });
 
     bot.command(glados.main.prefix + 'setgame ["gamename"]')
@@ -114,7 +120,7 @@ module.exports = bot => {
         });
     bot.command(glados.main.prefix + 'voice ["what?"]')
         .action((meta, text) => {
-            meta.channel.sendTTSMessage(text);
+            text == null ? meta.channel.sendMessage('I cant say nothing') : meta.channel.sendTTSMessage(text);
         });
     bot.command(glados.main.prefix + 'sinfo')
         .action(meta => {

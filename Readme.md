@@ -1,7 +1,9 @@
 # GLaDOS V2
 
-![alt text][logo]
-[logo]: http://i.imgur.com/pHmZmeM.jpg "GLaDOS Discord Bot"
+![alt text][logo]: https://www.dev-force.net/images/Glados%20Banner.jpg "GLaDOS Discord Bot"
+
+#Invite
+Invite GLaDOS to your server with a click [here](https://discordapp.com/oauth2/authorize?client_id=236241868810223616&scope=bot&permissions=0 "Invite-Link") 
 
 ##Installation
 
@@ -11,7 +13,7 @@
 * Go into the  ```/data/``` directory and create a folder called  ```settings```.
 	Then move your settings.json there.
    -> The bot should work now perfectly fine. If you have issues, open a issue at this repo.
-   
+
 Our development server on discord can be found [here](https://discord.gg/JWBf8Qv "Dev-Force")
-   
+
 ~Force67 & MasterZero
