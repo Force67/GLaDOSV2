@@ -20,7 +20,7 @@ module.exports = bot => {
                     url: glados.invitelink,
                     fields: [{
                         name: 'Creators',
-                        value: 'Developed by <@194151547846787072> & <@232899182552285184> with :heart: '
+                        value: 'Developed by <@194151547846787072> & <@195225230908588032> with :heart: '
                     }, {
                         name: 'Stats',
                         value: 'Uptime: ' + glados.main.moment(new Date()).subtract(meta.client.uptime / 1000, 'seconds').format('HH:mm:ss') + '\nServing ' + glados.main.client.guilds.array().length + ' servers'
@@ -38,16 +38,45 @@ module.exports = bot => {
 		   //This idea was from another discord server. I've got this inspiration from them.
 		  var msg = 'Testing performance!';
 		  meta.channel.send(msg).then((msg2) => {
-			    var performance = Math.floor(msg2.createdTimestamp - meta.createdTimestamp);
-				msg2.edit("Speed of <@"+glados.botID+"> is "+performance+"ms.");
+				msg2.edit("Speed of <@"+glados.main.client.user.id+"> is "+Math.floor(msg2.createdTimestamp - meta.createdTimestamp)+"ms.");
 				return msg2;
 	   }).catch(err => console.log(err.stack));
 	   });
-     bot.command(glados.main.prefix + 'ping')
-          .action((meta) => {
-            //  var ping = Math.floor(glados.main.client.ping).toString();
-              meta.channel.sendMessage('Pong! -> ' + glados.main.client.ping + ' ms.')
-          });
+	bot.command(glados.main.prefix + 'ping')
+	   .action((meta) => {
+		   meta.channel.send('Pong! -> '+Math.floor(glados.main.client.ping).toString()+'ms.')
+	   });
+	   		// EXPERIMENTAL ¡¡ sometimes work sometimes doesn't :( disabled by default
+    /*bot.command(glados.main.prefix + 'clearchat [number]')
+	   .action((meta,text) =>{
+		   var gg = parseInt(text);
+		   if(text == null || gg >= 100 || gg <= 1)
+		   {
+			   gg = 50;
+		   }
+		  meta.channel.fetchMessages({limit : gg})
+			.then(messages => {
+            meta.channel.bulkDelete(messages);
+            messagesDeleted = messages.array().length; // number of messages deleted
+
+            // Logging the number of messages deleted on both the channel and console.
+            meta.channel.sendMessage("Deleteding messages successful. Total messages deleted: "+messagesDeleted);
+			});
+	   });*/
+	/*bot.command(glados.main.prefix + 'cleanall')
+	   .action((meta) =>{
+		   meta.channel.fetchMessages()
+			.then(messages => {
+				for (var i = 0, len = messages.array().length; i < len; i++) {
+					meta.delete();
+			}
+            messagesDeleted = messages.array().length; // number of messages deleted
+
+            // Logging the number of messages deleted on both the channel and console.
+            meta.channel.sendMessage("Hiding messages successful. Total messages hided: "+messagesDeleted);
+			});
+	   });*/
+	   // EXPERIMENTAL ^^ sometimes work sometimes doesn't :( disabled by default
     bot.command(glados.main.prefix + 'hi')
         .action((meta, arg) => {
             meta.channel.sendMessage("```lua\n" + "print('hello world!')```");
@@ -56,10 +85,10 @@ module.exports = bot => {
         .action((meta, arg) => {
             meta.reply("'s Id is: " + meta.id);
         });
-
+		
 	bot.command(glados.main.prefix + 'setusername ["username"]')
         .action((meta, text) => {
-            glados.isAdmin(meta.author.id, function(t) {
+            glados.isAdmin(meta.author.id,meta.guild.id, function(t) {
                 if (!t) {
                     return meta.reply(glados.main.norights);
                 }
@@ -73,15 +102,11 @@ module.exports = bot => {
                 }
             });
         });
-
+		
     bot.command(glados.main.prefix + 'spam ["string"] [count]')
         .action((meta, text, count) => {
             if (text === null || count === null)
                 return;
-
-            glados.isAdmin(meta.author.id, function(t) {
-                if (!t) { return; }
-            });
 
             if (text.charAt(0) === ">") {
                 return meta.reply("You can't spam commands!");
@@ -98,19 +123,19 @@ module.exports = bot => {
 
     bot.command(glados.main.prefix + 'say ["what?"]')
         .action((meta, text) => {
-			      if (text == null)
+			if (text == null)
             {
               meta.channel.sendMessage('You want me to tell ... nothing ?');
             }
             else {
             meta.delete();
             meta.channel.sendMessage(text);
-          }
+			}
         });
 
     bot.command(glados.main.prefix + 'setgame ["gamename"]')
         .action((meta, text) => {
-            glados.isAdmin(meta.author.id, function(t) {
+            glados.isAdmin(meta.author.id,meta.guild.id, function(t) {
                 if (!t) {
                     return meta.reply(glados.main.norights);
                 } else {
@@ -120,7 +145,8 @@ module.exports = bot => {
         });
     bot.command(glados.main.prefix + 'voice ["what?"]')
         .action((meta, text) => {
-            text == null ? meta.channel.sendMessage('I cant say nothing') : meta.channel.sendTTSMessage(text);
+			text == null ? meta.channel.sendMessage('I cant say nothing') : meta.channel.sendTTSMessage(text);
+            meta.channel.sendTTSMessage(text);
         });
     bot.command(glados.main.prefix + 'sinfo')
         .action(meta => {
@@ -170,7 +196,7 @@ module.exports = bot => {
         });
     bot.command(glados.main.prefix + 'eval ["code"]')
         .action((meta, text) => {
-            glados.isAdmin(meta.author.id, function(t) {
+            glados.isAdmin(meta.author.id,meta.guild.id, function(t) {
                 if (!t) {
                     return meta.reply(glados.main.norights);
                 } else {
@@ -212,7 +238,7 @@ msg.channel.sendMessage("", {embed: {
   timestamp: new Date(),
   footer: {
     icon_url: bot.user.avatarURL,
-    text: 'ï¿½ Example'
+    text: '© Example'
   }
 }});
     */

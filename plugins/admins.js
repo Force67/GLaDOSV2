@@ -19,8 +19,10 @@ module.exports = bot => {
             glados.main.db.all("SELECT * FROM admins", function(err, rows) {
                 let admins = "";
                 rows.forEach(function(row) {
-                    let client = glados.main.client.users.get(row.discordid);
-                    admins = admins + "<@" + row.discordid + ">\n";
+					let client = glados.main.client.users.get(row.id);
+					if(row.serverid == meta.guild.id && row.serverid != null)
+						return;
+                    admins = admins + "<@" + row.discordid + "> ("+row.rank+")\n";
                 });
                 meta.channel.sendMessage("",{embed :{
                     color : 3447003, //rnd_selection(3447003, 14365491, 3201849, 13818670, 13577435, 7089371, 14383916),
@@ -36,10 +38,10 @@ module.exports = bot => {
         });
 
     cmd
-        .command('addid ["discordid"]')
+        .command('addid ["discordid"] [rank]')
         .showHelpOnEmpty(false)
-        .action((meta, id) => {
-            glados.isAdmin(meta.author.id, function(t) {
+        .action((meta, id,rank) => {
+            glados.isAdmin(meta.author.id,meta.guild.id, function(t) {
                 if (!t) {
                     return meta.reply(glados.main.norights);
                 } else {
@@ -58,8 +60,9 @@ module.exports = bot => {
                             }
                             let client = glados.main.client.users.get(id);
 
-                            glados.main.db.run("INSERT INTO admins (discordid) VALUES(?1)", {
-                                1: id
+                            glados.main.db.run("INSERT INTO admins (discordid,rank) VALUES(?1,?2)", {
+                                1: id,
+								2: rank
                             });
                             meta.channel.sendMessage("@here " + client.username + " is now GLaDOS admin!");
                         }
@@ -68,9 +71,9 @@ module.exports = bot => {
             });
         });
 	cmd
-        .command('addname ["username"]')
+        .command('addname ["username"] [rank]')
         .showHelpOnEmpty(false)
-        .action((meta, text) => {
+        .action((meta, text,rank) => {
             glados.isAdmin(meta.author.id, function(t) {
                 if (!t) {
                     return meta.reply(glados.main.norights);
@@ -91,8 +94,9 @@ module.exports = bot => {
                             }
                             let client = glados.main.client.users.get(users[0].user.id);
 
-                            glados.main.db.run("INSERT INTO admins (discordid) VALUES(?1)", {
-                                1: users[0].user.id
+                            glados.main.db.run("INSERT INTO admins (discordid,rank) VALUES(?1,?2)", {
+                                1: users[0].user.id,
+								2: rank
                             });
                             meta.channel.sendMessage("@here " + users[0].user.username + " is now GLaDOS admin!");
                         }
