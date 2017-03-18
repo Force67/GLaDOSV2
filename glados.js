@@ -28,7 +28,7 @@ const rl = readline.createInterface({
 });
 
 //////////////////////////////////////////////
-var prefix = '>',
+var prefix = '<',
   imgur = require('imgur-node-api'),
   path = require('path'),
   YouTube = require('youtube-node'),
@@ -41,11 +41,23 @@ var prefix = '>',
   webport = 8080,
   invitelink = "",
   hackerearth = "",
-  admpw = "",
-  admusr = "",
   norights = "Insufficient client rights!",
   voiceC = null;
-
+var bot_perms = [
+  "MANAGE_CHANNELS",
+  "MANAGE_GUILD",
+  "KICK_MEMBERS",
+  "EMBED_LINKS",
+  "ATTACH_FILES",
+  "READ_MESSAGE_HISTORY",
+  "READ_MESSAGES",
+  "SEND_MESSAGES",
+  "SEND_TTS_MESSAGES",
+  "MANAGE_MESSAGES",
+  "MANAGE_NICKNAMES", // change nicknames of others
+  //"MANAGE_ROLES_OR_PERMISSIONS",
+  "BAN_MEMBERS"
+];
 //////////////////////////////////////////////
 
 function Setupifneeded()
@@ -79,12 +91,12 @@ ReadJson( function (t)
 ////////////////////////////////////////////
 
 client.on('ready', () => {
-  console.log('Welcome to GLaDOS 2.2');
+    console.log('Welcome to GLaDOS 2.0');
     //voice connect
-  //  var vc = client.channels.get('259776446942150658');
-  //  vc.join().catch("Can't connect to voice!");
-  //  exports.voiceC = vc;
-  console.log("Loading Settings...");
+    var vc = client.channels.get('280351378524602370');
+    vc.join().catch("Can't connect to voice!");
+    exports.voiceC = vc;
+    console.log("Loading Settings...");
 
   ReadJson( function (eleme)
   {
@@ -94,9 +106,9 @@ client.on('ready', () => {
       client.user.setGame(eleme.defaultgame);
       webport = eleme.webinterfaceport;
       admpw = eleme.admpw;
-      hackerearth = eleme.hackerearth;
+	  hackerearth = eleme.hackerearth;
       admusr = eleme.admusr;
-      if (eleme.rndavatar == true)
+        if (eleme.rndavatar == true)
         {
           //2 images
           var avartar = Math.random() * (4 - 1) + 1;
@@ -126,56 +138,118 @@ client.on('ready', () => {
               }
           });
       });
-      exports.webpw = admpw;
-      exports.webusr= admusr;
-      exports.hkearthsecret = hackerearth;
-
-      console.log("Finished loading Settings");
-
     });
     //our bot invite link
     exports.invitelink = 'https://discordapp.com/oauth2/authorize?client_id=' + client.user.id + '&scope=bot&permissions=0';
+    console.log("Finished loading Settings");
     enabletranslation = true;
 });
 
 //////////////////////////////////////////////
 
-exports.isBanned = function (discordid, callback) {
-     db.get("SELECT COUNT(*) AS co FROM blockedusers WHERE discordid = ?1", {
-         1: discordid
-     }, function (err, row) {
-         if (err) {
-             console.log("ERROR isBanned: " + err);
-             callback(false);
-         }
-         callback(row.co);
-     });
- }
-
 client.on('message', msg => {
-	/*if(msg.content.startsWith(prefix))
+	if(msg.content.includes(prefix) || msg.content.includes('<@'+client.user.id+'>'))
 	{
-	exports.isBanned(msg.author.id,function (t)	{
-	   t ? msg.reply('You are banned from using GLaDOS.') : bot.parse(msg.content, msg);
+	if(msg.author.id == client.user.id || msg.author.bot)
+		return;
+	exports.isAdmin(msg.author.id, msg.channel.guild.id,(function(j)
+	{
+	if(j)
+		return bot.parse(msg.content, msg);
+	else
+	{
+	exports.isBanned(msg.author.id,msg.channel.guild.id,function(t)
+	{
+	if(t == msg.channel.guild.id || t == null)
+		return;
+	else
+	return bot.parse(msg.content, msg);
 	});
-}*/
-    bot.parse(msg.content,msg);
+	}
+	}));
+	}
+});
+client.on('guildMemberAdd',(member) => {//WHERE serverid = ?1", { 1: client.guild.id }
+	db.get("SELECT welcome_msg AS msg FROM server_configurations WHERE serverid = ?1", {
+		1: member.guild.id
+	}, function(err, row) {
+	var tmp = row.msg.replace('{user}',"<@"+member.user.id +"> ");
+	var final_msg = tmp.replace('{help}',prefix+"help");
+	member.guild.channels.get(member.guild.id).sendMessage(final_msg); //"<@"+member.user.id +"> " + row.msg
+});
+});
+client.on('guildCreate',(guild) => { // 
+	guild.channels.get(guild.defaultChannel.id).sendMessage("Hello @everyone! I was invited to your channel. Thank you for iviting me!");
+	guild.channels.get(guild.defaultChannel.id).sendCode("Please give me some permissions I need: \n" + bot_perms);
+	db.run("INSERT INTO server_configurations (serverid, welcome_msg, leave_msg) VALUES(?1, ?2, ?3)", {
+		1: guild.id,
+		2: 'Defalut welcome message',
+		3: 'Default leave message'
+	});
+});
+client.on('guildMemberRemove',(member) => {
+	db.get("SELECT leave_msg AS msg FROM server_configurations WHERE serverid = ?1", {
+		1: member.guild.id
+	}, function(err, row) {
+	var tmp = row.msg.replace('{user}',"<@"+member.user.id +"> ");
+	member.guild.channels.get(member.guild.id).sendMessage(tmp); //"<@"+member.user.id +"> " + row.msg
+});
+});
+client.on('disconnect', (event) => {
+	console.log('Disconnected: ' + event.reason + ' (' + event.code + ')');
+});
+client.on('reconnecting', () => {
+	console.log('Trying to reconnect!');
+});
+client.on('error',(error) => {
+	console.error('Error in client! Error: '+error.message);
+	application.exit();
+//////////////////////////////////////////////
 });
 
-//////////////////////////////////////////////
-
-exports.isAdmin = function (discordid, callback) {
-    db.get("SELECT COUNT(*) AS co FROM admins WHERE discordid = ?1", {
+exports.isAdmin = function (discordid,serverid,callback) {
+    db.get("SELECT serverid AS guildid, rank AS co FROM admins WHERE discordid = ?1", {
         1: discordid
     }, function (err, row) {
         if (err) {
             console.log("ERROR isAdmin: " + err);
-            callback(false);
+            return callback(false);
         }
-        callback(row.co);
+		if(row == [] || row == null || row == undefined)
+		{
+			return callback(false);
+		}
+		if(row.guildid == "GLOBAL")
+		{
+			return callback(row.co);
+		}
+		if(row.guildid == serverid)
+		{
+			return callback(row.co);
+		}
+		if(row == [] || row == null || row == undefined)
+		{
+			return callback(false);
+		}
+		callback(false);
     });
-};
-
+}
+exports.isBanned = function (discordid,serverid, callback) {
+    db.get("SELECT serverid AS co FROM blockedusers WHERE discordid = ?1", {
+        1: discordid
+    }, function (err, row) {
+        if (err) {
+            console.log("ERROR isBanned: " + err);
+            return callback(false);
+        }
+	    if(row == undefined)
+		return callback(false);
+		if(row.co == serverid)
+			return callback(true);
+		if(row.co == 'GLOBAL')
+			return callback(true);
+    });
+}
 exports.main = {
     prefix: prefix,
     Discord: Discord,

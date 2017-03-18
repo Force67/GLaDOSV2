@@ -17,6 +17,10 @@ function randompic(handle,type)
     }
   });
 }
+function ReadJson(data,callback)
+{
+    callback(JSON.parse(data));
+}
 
 module.exports = bot => {
         let cmd = bot
@@ -27,5 +31,19 @@ module.exports = bot => {
         .action((meta) => {
           randompic(meta,'dog');
         });
+		cmd.command('cat')
+		.action((meta) =>
+		{
+	glados.main.request('http://random.cat/meow' , function(error,response,html)
+	{
+	if (!error)
+	{
+		var file;
+		let wb = glados.main.cheerio.load(html);
+		ReadJson(html,function(a) { file = a.file; })
+		meta.reply(file);
+	}
+	});
+	});
 
 };
