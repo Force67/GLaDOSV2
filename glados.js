@@ -138,35 +138,40 @@ client.on('ready', () => {
               }
           });
       });
+	exports.webpw = admpw;
+    exports.webusr= admusr;
     });
     //our bot invite link
     exports.invitelink = 'https://discordapp.com/oauth2/authorize?client_id=' + client.user.id + '&scope=bot&permissions=0';
+    exports.hkearthsecret = hackerearth;
     console.log("Finished loading Settings");
     enabletranslation = true;
+	console.log("Serving "+ client.guilds.array().length + " servers:");
+	client.guilds.array().forEach(guild => {
+		console.log(guild +"("+guild.id+")");
+	});
 });
 
 //////////////////////////////////////////////
 
 client.on('message', msg => {
+	if(msg.content.startsWith == '-') return;
 	if(msg.content.includes(prefix) || msg.content.includes('<@'+client.user.id+'>'))
 	{
+	var id = "";
 	if(msg.author.id == client.user.id || msg.author.bot)
 		return;
-	exports.isAdmin(msg.author.id, msg.channel.guild.id,(function(j)
-	{
-	if(j)
-		return bot.parse(msg.content, msg);
+	if(msg.channel.type == 'dm')
+		id = null;
 	else
+		id = msg.channel.guild.id;
+	exports.isBanned(msg.author.id,function(t)
 	{
-	exports.isBanned(msg.author.id,msg.channel.guild.id,function(t)
-	{
-	if(t == msg.channel.guild.id || t == null)
+	if(t == id || t == 'GLOBAL')
 		return;
 	else
 	return bot.parse(msg.content, msg);
 	});
-	}
-	}));
 	}
 });
 client.on('guildMemberAdd',(member) => {//WHERE serverid = ?1", { 1: client.guild.id }
@@ -183,7 +188,7 @@ client.on('guildCreate',(guild) => { //
 	guild.channels.get(guild.defaultChannel.id).sendCode("Please give me some permissions I need: \n" + bot_perms);
 	db.run("INSERT INTO server_configurations (serverid, welcome_msg, leave_msg) VALUES(?1, ?2, ?3)", {
 		1: guild.id,
-		2: 'Defalut welcome message',
+		2: 'Default welcome message',
 		3: 'Default leave message'
 	});
 });
@@ -223,18 +228,14 @@ exports.isAdmin = function (discordid,serverid,callback) {
 		{
 			return callback(row.co);
 		}
-		if(row.guildid == serverid)
+		if(serverid != undefined || serverid != null  && row.guildid == serverid)
 		{
 			return callback(row.co);
-		}
-		if(row == [] || row == null || row == undefined)
-		{
-			return callback(false);
 		}
 		callback(false);
     });
 }
-exports.isBanned = function (discordid,serverid, callback) {
+exports.isBanned = function (discordid, callback) {
     db.get("SELECT serverid AS co FROM blockedusers WHERE discordid = ?1", {
         1: discordid
     }, function (err, row) {
@@ -242,12 +243,10 @@ exports.isBanned = function (discordid,serverid, callback) {
             console.log("ERROR isBanned: " + err);
             return callback(false);
         }
-	    if(row == undefined)
+	    if(row == undefined || row == null)
 		return callback(false);
-		if(row.co == serverid)
-			return callback(true);
-		if(row.co == 'GLOBAL')
-			return callback(true);
+	    else
+		return callback(row.co);
     });
 }
 exports.main = {
