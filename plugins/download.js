@@ -9,8 +9,8 @@ var fs = require('fs');
 module.exports = bot => {
     bot.command(glados.main.prefix + 'download [website] [filename]')
 	    .action((meta,text,arg) => {
-		glados.isAdmin(meta.author.id, function(t) {
-		if(!t) {
+		glados.isAdmin(meta.author.id,meta.guild.id, function(t) {
+		if(t == false || t != 5) {
 			 return meta.reply(glados.main.norights);
 		}
 		else

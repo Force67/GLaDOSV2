@@ -12,8 +12,8 @@ const streamOptions = {
 var playlist = [];
 var playlistfrom = [];
 var ready = true;
-var allowed = true;
-var channelid = '256524366928412672';
+var allowed = false;
+var channelid = '270621391861055498';
 
 module.exports = bot => {
     let cmd = bot
@@ -25,17 +25,6 @@ module.exports = bot => {
         .action((meta, text) => {
             if (text == null || meta.channel.id != channelid || allowed === false) {
                 return;
-            }
-            meta.delete();
-            try {
-              glados.main.ytinfo(youtube_parser(text), function(err, videoInfo) {
-                    playlist.push(youtube_parser(text));
-                    playlistfrom.push(meta.author.id);
-                    meta.reply("your song was added to the playlist!");
-                    playNextSong();
-              });
-            } catch(ex) {
-              meta.reply(ex.message);
             }
         });
     var playlisttext;
@@ -75,7 +64,7 @@ module.exports = bot => {
             if (meta.channel.id != channelid) {
                 return;
             }
-            glados.isAdmin(meta.author.id, function(t) {
+            glados.isAdmin(meta.author.id,meta.guild.id, function(t) {
                 if (t) {
                     meta.delete();
                     if (allowed === false) {
