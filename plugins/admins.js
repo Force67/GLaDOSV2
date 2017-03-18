@@ -16,11 +16,11 @@ module.exports = bot => {
         .command('list')
         .showHelpOnEmpty(false)
         .action((meta) => {
-            glados.main.db.all("SELECT * FROM admins", function(err, rows) {
+            glados.main.db.all("SELECT serverid,discordid,rank FROM admins" , function(err, rows) {
                 let admins = "";
                 rows.forEach(function(row) {
 					let client = glados.main.client.users.get(row.id);
-					if(row.serverid == meta.guild.id && row.serverid != null)
+					if(row.serverid != meta.guild.id && row.serverid != 'GLOBAL')
 						return;
                     admins = admins + "<@" + row.discordid + "> ("+row.rank+")\n";
                 });
