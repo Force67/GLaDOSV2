@@ -37,14 +37,14 @@ module.exports = bot => {
 	   .action((meta) => {
 		   //This idea was from another discord server. I've got this inspiration from them.
 		  var msg = 'Testing performance!';
-		  meta.channel.send(msg).then((msg2) => {
+		  meta.channel.sendMessage(msg).then((msg2) => {
 				msg2.edit("Speed of <@"+glados.main.client.user.id+"> is "+Math.floor(msg2.createdTimestamp - meta.createdTimestamp)+"ms.");
 				return msg2;
 	   }).catch(err => console.log(err.stack));
 	   });
 	bot.command(glados.main.prefix + 'ping')
 	   .action((meta) => {
-		   meta.channel.send('Pong! -> '+Math.floor(glados.main.client.ping).toString()+'ms.')
+		   meta.channel.sendMessage('Pong! -> '+Math.floor(glados.main.client.ping).toString()+'ms.')
 	   });
 	   		// EXPERIMENTAL ¡¡ sometimes work sometimes doesn't :( disabled by default
     /*bot.command(glados.main.prefix + 'clearchat [number]')
