@@ -96,23 +96,8 @@ client.on('ready', () => {
       admpw = eleme.admpw;
       hackerearth = eleme.hackerearth;
       admusr = eleme.admusr;
-      if (eleme.rndavatar == true)
-        {
-          //2 images
-          var avartar = Math.random() * (4 - 1) + 1;
-          switch (Math.ceil(avartar - 1))
-          {
-              case 1:
-                  client.user.setAvatar('./data/strtup/avatar/glados_1.jpg');
-                  break;
-              case 2:
-                  client.user.setAvatar('./data/strtup/avatar/glados_2.jpg');
-                  break;
-              case 3:
-                  client.user.setAvatar('./data/strtup/avatar/glados_3.jpg');
-                  break;
-          }
-        }
+      
+	  client.user.setAvatar('./data/strtup/avatar/glados.jpg');
 	  //init plugins
       fs.readdir('./plugins/', (err, files) => {
           files.forEach(file => {
