@@ -14,8 +14,8 @@ module.exports = bot => {
   cmd.command('search ["keyword"]')
   .showHelpOnEmpty(false)
       .action((meta, text) => {
-          glados.SafeDelete(meta,function(t) { if(t == true )
-			            glados.main.request('https://itunes.apple.com/search?term=' + text, function(error, response, html) {
+          meta.delete();
+          glados.main.request('https://itunes.apple.com/search?term=' + text, function(error, response, html) {
               if (!error && response != 404)
               {
                  var content = JSON.parse(html);
@@ -42,7 +42,6 @@ module.exports = bot => {
 
               }
           });
-			  });
       });
 
 };

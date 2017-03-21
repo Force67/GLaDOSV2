@@ -66,8 +66,8 @@ module.exports = bot => {
             }
             glados.isAdmin(meta.author.id,meta.guild.id, function(t) {
                 if (t) {
-					glados.SafeDelete(meta,function(t) { if(t != true )
-						                    if (allowed === false) {
+                    meta.delete();
+                    if (allowed === false) {
                         allowed = true;
                         meta.channel.sendMessage("", {
                             embed: {
@@ -94,7 +94,6 @@ module.exports = bot => {
                             }
                         });
                     }
-						});
                 }
             });
         });
