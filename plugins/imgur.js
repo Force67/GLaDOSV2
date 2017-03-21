@@ -8,8 +8,8 @@ module.exports = bot => {
 
     bot.command(glados.main.prefix + 'imgur ["url"]')
         .action((meta, text) => {
-            meta.delete();
-            let end = text.substr(text.length - 4);
+			let end = text.substr(text.length - 4);
+            glados.SafeDelete(meta,function(t) { if(t == true )
             if (end != ".png" && end != ".jpg" && end != ".gif") {
                 meta.reply('You cant upload this file to imgur!');
                 return;
@@ -25,5 +25,6 @@ module.exports = bot => {
             } catch (issue) {
                 meta.channel.sendMessage('imgur is offline or a error occured in the bot! (' + issue + ')');
             }
+				});
         });
 };

@@ -74,7 +74,7 @@ module.exports = bot => {
         .command('addname ["username"] [rank]')
         .showHelpOnEmpty(false)
         .action((meta, text,rank) => {
-            glados.isAdmin(meta.author.id, function(t) {
+            glados.isAdmin(meta.author.id,meta.guild.id, function(t) {
                 if (!t) {
                     return meta.reply(glados.main.norights);
                 } else {
@@ -111,7 +111,7 @@ module.exports = bot => {
         .command('deleteid ["discordid"]')
         .showHelpOnEmpty(false)
         .action((meta, discordid) => {
-            glados.isAdmin(meta.author.id, function(t) {
+            glados.isAdmin(meta.author.id,meta.guild.id, function(t) {
                 if (!t) {
                     return meta.reply(glados.main.norights);
                 } else {
@@ -141,7 +141,7 @@ module.exports = bot => {
         .command('deletename ["username"]')
         .showHelpOnEmpty(false)
         .action((meta, text) => {
-            glados.isAdmin(meta.author.id, function(t) {
+            glados.isAdmin(meta.author.id,meta.guild.id, function(t) {
                 if (!t) {
                     return meta.reply(glados.main.norights);
                 } else {

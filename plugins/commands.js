@@ -68,7 +68,7 @@ module.exports = bot => {
 		   meta.channel.fetchMessages()
 			.then(messages => {
 				for (var i = 0, len = messages.array().length; i < len; i++) {
-					meta.delete();
+					glados.SafeDelete(meta);
 			}
             messagesDeleted = messages.array().length; // number of messages deleted
 
@@ -128,8 +128,7 @@ module.exports = bot => {
               meta.channel.sendMessage('You want me to tell ... nothing ?');
             }
             else {
-            meta.delete();
-            meta.channel.sendMessage(text);
+            glados.SafeDelete(meta,function(t) { if(t == true ) meta.channel.sendMessage(text);});
 			}
         });
 

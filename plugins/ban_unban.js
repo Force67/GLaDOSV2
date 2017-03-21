@@ -20,10 +20,10 @@ bot.command(glados.main.prefix + 'block ["name"] ["global"]')
 		   }
 		   else {
 			var users = meta.channel.guild.members.filter((member) => member.user.username == text).array();
-			meta.delete();
-			if(users.length == 1){
-				glados.isBanned(users[0].user.id,meta.guild.id,function(t) {
-				if(t) {
+			glados.SafeDelete(meta,function(t) { if(t == true )
+							if(users.length == 1){
+				glados.isBanned(users[0].user.id,meta.guild.id,function(K) {
+				if(K) {
 					return meta.reply('User is already banned!');
 				}
 				else {
@@ -40,6 +40,8 @@ bot.command(glados.main.prefix + 'block ["name"] ["global"]')
 			} else {
 				meta.channel.sendMessage("No user " + text + " found!");
 			}
+				});
+
 		   }
 		   });
 });
@@ -52,7 +54,7 @@ bot.command(glados.main.prefix + 'unblock ["name"]')
 		   }
 		   else {
 			var users = meta.channel.guild.members.filter((member) => member.user.username == text).array();
-			meta.delete();
+			glados.SafeDelete(meta,function(t) { if(t != true ) return;});
 			if(users.length == 1){
 				glados.isBanned(users[0].user.id,meta.guild.id,function(t) {
 				if(!t) {

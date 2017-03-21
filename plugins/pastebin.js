@@ -14,9 +14,8 @@ module.exports = bot => {
         .action((meta, id) => {
             if (id === null)
                 return;
-
-            meta.delete();
-            if (id.includes("pastebin.com")) {
+			glados.SafeDelete(meta,function(t) { if(t == true )
+			 if (id.includes("pastebin.com")) {
                 meta.reply("Only the pastebin id!")
             } else {
                 glados.main.request("http://pastebin.com/raw/" + id, function(error, response, html) {
@@ -40,9 +39,10 @@ module.exports = bot => {
 
                     } else {
                         meta.reply("Can't show pastebin for you! Issue: " + error);
-                    }
-                })
-            }
+						}
+					})
+				}
+			});
         });
 
     cmd
@@ -51,7 +51,7 @@ module.exports = bot => {
         .action((meta, text) => {
             if (text === null)
                 return;
-            meta.delete();
+            glados.SafeDelete(meta,function(t) { if(t != true ) return;});
             glados.main.request.post('http://pastebin.com/api/api_post.php', {
                     form: {
                         api_option: "paste",
