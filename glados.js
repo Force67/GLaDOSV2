@@ -140,13 +140,18 @@ client.on('ready', () => {
 
 client.on('message', msg => {
 	if(msg.content.startsWith == '-') return;
-	if(msg.content.includes(prefix) || msg.content.includes('<@'+client.user.id+'>'))
+	if(msg.content.startsWith(prefix) || msg.content.startsWith('<@'+client.user.id+'>'))
 	{
 	var id = "";
 	if(msg.author.id == client.user.id || msg.author.bot)
 		return;
-	if(msg.channel.type == 'dm')
+	if(!msg.server)
+	{
+	    if(msg.content.startsWith(prefix+'block') || msg.content.startsWith(prefix+'unblock')|| msg.content.startsWith(prefix+'admin') || msg.content.startsWith(prefix+'<messages'))
+			return msg.reply('This command is not allowed to be used in DM!');
+		else
 		id = null;
+	}
 	else
 		id = msg.channel.guild.id;
 	exports.isBanned(msg.author.id,function(t)
@@ -218,6 +223,14 @@ exports.isAdmin = function (discordid,serverid,callback) {
 		}
 		callback(false);
     });
+}
+exports.SafeDelete = function(meta,callback) {
+	var sucess = true;
+	if(meta.guild.member(client.user.id).hasPermissions(bot_perms) != false)
+	  return meta.delete().catch(sucess = false);
+    else
+	  return meta.channel.sendCode("","Please give me some permissions I need: \n" + bot_perms).catch(console.error);
+  callback(sucess);
 }
 exports.isBanned = function (discordid, callback) {
     db.get("SELECT serverid AS co FROM blockedusers WHERE discordid = ?1", {
