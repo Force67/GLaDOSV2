@@ -27,7 +27,7 @@ const rl = readline.createInterface({
 });
 
 //////////////////////////////////////////////
-var prefix = '<',
+var prefix = '>',
     imgur = require('imgur-node-api'),
     path = require('path'),
     YouTube = require('youtube-node'),
@@ -133,22 +133,20 @@ client.on('ready', () => {
 client.on('message', msg => {
     if (msg.content.startsWith == '-') return;
     if (msg.content.startsWith(prefix) || msg.content.startsWith('<@' + client.user.id + '>')) {
-        var id = "";
         if (msg.author.id == client.user.id || msg.author.bot)
             return;
-        if (!msg.server && msg.channel == 'dm') {
-            if (msg.content.startsWith(prefix + 'block') || msg.content.startsWith(prefix + 'unblock') || msg.content.startsWith(prefix + 'admin') || msg.content.startsWith(prefix + '<messages'))
-                return msg.reply('This command is not allowed to be used in DM!');
-            else
-                id = null;
-        } else
-            id = msg.channel.guild.id;
+        if (msg.channel.type == 'dm' || msg.channel.type == 'group') {
+			return msg.channel.sendMessage(exports.RandomText('Please, dont message me here.','Im not available right now.', 'Not now.','I refuse to work for you.'));
+		}
+		else
+		{
         exports.isBanned(msg.author.id, function(t) {
-            if (t == id && t == 'GLOBAL')
+            if (t == msg.channel.guild.id && t == 'GLOBAL')
                 return;
             else
                 return bot.parse(msg.content, msg);
         });
+		}
     }
 });
 client.on('guildMemberAdd', (member) => { //WHERE serverid = ?1", { 1: client.guild.id }
