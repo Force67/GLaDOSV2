@@ -40,7 +40,7 @@ module.exports = bot => {
                 if (!err) {
                     meta.channel.sendMessage("", {
                         embed: {
-                            color: 16731648,
+                            color: glados.RandomText(3447003, 14365491, 3201849, 13818670, 13577435, 7089371, 14383916, 16731648),
                             author: {
                                 name: meta.client.user.username,
                                 icon_url: meta.client.user.avatarURL
