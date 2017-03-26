@@ -9,7 +9,7 @@ module.exports = bot => {
         .action((meta, text1, text2, text3) => {
             try {
                 meta.reply("Wait shortly");
-                var rnd =  Math.random() * (6 - 1) + 1; //5
+                var rnd = Math.random() * (6 - 1) + 1; //5
                 var rndtext = Math.random() * (5 - 1) + 1; //4
                 glados.main.request.post('https://photofunia.com/effects/retro-wave&text1=' + text1 + '&text2=' + text2 + '&text3=' + text3, {
                     form: {

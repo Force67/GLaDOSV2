@@ -21,7 +21,7 @@ module.exports = bot => {
         .showHelpOnEmpty(false)
 
     cmd.command('play ["url"]')
-		.showHelpOnEmpty(false)
+        .showHelpOnEmpty(false)
         .action((meta, text) => {
             if (text == null || meta.channel.id != channelid || allowed === false) {
                 return;
@@ -30,70 +30,71 @@ module.exports = bot => {
     var playlisttext;
     var tempstack = [];
     cmd.command('playlist')
-    .showHelpOnEmpty(false)
-    .action((meta) => {
-      playlisttext = "";
-     meta.channel.sendMessage('DEBUG ' + playlist.length);
-        for (var i = -1; i < playlist.length ;i++)
-        {
-          /*
-          glados.main.ytinfo(playlist[i], function(err, videoInfo)
-          {
-            playlisttext = playlisttext + videoInfo.title + "\n";
-            meta.reply("lapse " + playlist[i]);
-          });*/
-        //  meta.reply('mov ' + playlist[i] + ' eax to stack');
-        playlisttext = playlisttext + "https://www.youtube.com/watch?v=" + playlist[i] + "\n";
-        }
-        meta.channel.sendMessage("", {
-            embed: {
-                color: 65297,
-                author: {
-                    name: "GLaDOS Music Service",
-                    icon_url: "http://i.imgur.com/TLQq3S4.png"
-                },
-                title: 'Playlist:',
-                description: playlisttext,
+        .showHelpOnEmpty(false)
+        .action((meta) => {
+            playlisttext = "";
+            meta.channel.sendMessage('DEBUG ' + playlist.length);
+            for (var i = -1; i < playlist.length; i++) {
+                /*
+                glados.main.ytinfo(playlist[i], function(err, videoInfo)
+                {
+                  playlisttext = playlisttext + videoInfo.title + "\n";
+                  meta.reply("lapse " + playlist[i]);
+                });*/
+                //  meta.reply('mov ' + playlist[i] + ' eax to stack');
+                playlisttext = playlisttext + "https://www.youtube.com/watch?v=" + playlist[i] + "\n";
             }
+            meta.channel.sendMessage("", {
+                embed: {
+                    color: 65297,
+                    author: {
+                        name: "GLaDOS Music Service",
+                        icon_url: "http://i.imgur.com/TLQq3S4.png"
+                    },
+                    title: 'Playlist:',
+                    description: playlisttext,
+                }
+            });
         });
-    });
 
     cmd.command('wishes status')
-		.showHelpOnEmpty(false)
+        .showHelpOnEmpty(false)
         .action((meta) => {
             if (meta.channel.id != channelid) {
                 return;
             }
-            glados.isAdmin(meta.author.id,meta.guild.id, function(t) {
+            glados.isAdmin(meta.author.id, meta.guild.id, function(t) {
                 if (t) {
-                    meta.delete();
-                    if (allowed === false) {
-                        allowed = true;
-                        meta.channel.sendMessage("", {
-                            embed: {
-                                color: 65297,
-                                author: {
-                                    name: "GLaDOS Music Service",
-                                    icon_url: "http://i.imgur.com/PXA0OdX.png"
-                                },
-                                title: 'Wish status:',
-                                description: "music wishes enabled!",
+                    glados.SafeDelete(meta, false, 0, function(t) {
+                        if (t != true)
+                            if (allowed === false) {
+                                allowed = true;
+                                meta.channel.sendMessage("", {
+                                    embed: {
+                                        color: 65297,
+                                        author: {
+                                            name: "GLaDOS Music Service",
+                                            icon_url: "http://i.imgur.com/PXA0OdX.png"
+                                        },
+                                        title: 'Wish status:',
+                                        description: "music wishes enabled!",
+                                    }
+                                });
+                            } else {
+                                allowed = false;
+                                meta.channel.sendMessage("", {
+                                    embed: {
+                                        color: 65297,
+                                        author: {
+                                            name: "GLaDOS Music Service",
+                                            icon_url: "http://i.imgur.com/PXA0OdX.png"
+                                        },
+                                        title: 'Wish status:',
+                                        description: "music wishes disabled!",
+                                    }
+                                });
                             }
-                        });
-                    } else {
-                        allowed = false;
-                        meta.channel.sendMessage("", {
-                            embed: {
-                                color: 65297,
-                                author: {
-                                    name: "GLaDOS Music Service",
-                                    icon_url: "http://i.imgur.com/PXA0OdX.png"
-                                },
-                                title: 'Wish status:',
-                                description: "music wishes disabled!",
-                            }
-                        });
-                    }
+                    });
                 }
             });
         });
@@ -121,7 +122,7 @@ function playNextSong() {
     let stream = glados.main.ytdl("https://www.youtube.com/watch?v=" + playlist[0], {
         filter: 'audioonly'
     });
-	let fromid = playlistfrom[0];
+    let fromid = playlistfrom[0];
     let dispatcher = glados.voiceC.connection.playStream(stream, streamOptions);
     glados.main.ytinfo(playlist[0], function(err, videoInfo) {
         let chan = glados.main.client.channels.get(channelid);

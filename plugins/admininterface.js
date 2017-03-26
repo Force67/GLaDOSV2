@@ -3,7 +3,6 @@
 //  GLaDOS admininterface module. Made by Force67 & MasterZero
 //
 //////////////////////////////////////////////////////////////////////////
-
 var glados = require('../glados.js');
 
 module.exports = bot => {
@@ -15,7 +14,7 @@ module.exports = bot => {
     var bodyParser = require('body-parser');
     var basicAuth = require('basic-auth-connect');
     var app = express();
-       //protect
+    //protect
     app.use(basicAuth(glados.webusr, glados.webpw));
 
     // view engine setup

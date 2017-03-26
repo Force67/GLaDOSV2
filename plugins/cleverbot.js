@@ -5,7 +5,7 @@
 //////////////////////////////////////////////////////////////////////////
 var glados = require('../glados.js');
 module.exports = bot => {
-    bot.command('<@'+glados.main.client.user.id+'> ["sentence"]')
+    bot.command('<@' + glados.main.client.user.id + '> ["sentence"]')
         //.alias('<@'+glados.main.client.user.id+'>')
         .action((meta, text) => {
             if (text == null)
